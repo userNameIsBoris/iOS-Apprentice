@@ -15,6 +15,7 @@ struct AboutView: View {
             VStack {
                 Text("🎯 Bullseye 🎯")
                     .modifier(AboutHeadingStyle())
+                    .navigationTitle("About Bullseye")
                 Text("This is Bullseye, the game where you can win points and earn fame by dragging a slider.")
                     .modifier(AboutBodyStyle())
                 Text("Your goal is to place the slider as close as possible to the target value. The closer you are, the more points you score.")

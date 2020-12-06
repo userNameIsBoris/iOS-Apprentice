@@ -66,6 +66,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 Spacer()
+                    .navigationTitle(Text("🎯 Bullseye 🎯"))
                 
                 // Target row
                 HStack {
@@ -83,7 +84,7 @@ struct ContentView: View {
                             print(Int(round(value)))
                         })
                         .accentColor(.green)
-                    
+                        .animation(.easeOut)
                     Text("100").modifier(ValueStyle())
                 }
                 Spacer()
