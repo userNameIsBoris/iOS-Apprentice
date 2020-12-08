@@ -7,24 +7,51 @@
 
 import SwiftUI
 
+// Structs
+struct ChecklistItem: Identifiable {
+    let id = UUID()
+    var name: String //= ""
+    var isChecked = false
+}
+
 struct ContentView: View {
+    
+    // Properties
     @State var checklistItems = [
-        "Take vocal lessons",
-        "Record hit single",
-        "Learn every martial art",
-        "Design costume",
-        "Design crime-fighting vehicle",
-        "Come up with superhero name",
-        "Befriend space raccoon",
-        "Save the world",
-        "Star in blockbuster movie",
+        ChecklistItem(name: "Walk the dog", isChecked: false),
+          ChecklistItem(name: "Brush my teeth", isChecked: false),
+          ChecklistItem(name: "Learn iOS development", isChecked: true),
+          ChecklistItem(name: "Soccer practice", isChecked: false),
+          ChecklistItem(name: "Eat ice cream", isChecked: false),
+//        ChecklistItem(name: <#T##String#>),
+//        ChecklistItem(name: <#T##String#>),
+//        ChecklistItem(name: <#T##String#>),
+//        ChecklistItem(name: <#T##String#>),
+//        ChecklistItem(name: <#T##String#>),
     ]
     
+    // UI content and layout
     var body: some View {
         NavigationView {
             List {
-                ForEach(checklistItems, id: \.self) { item in
-                    Text(item)
+                ForEach(checklistItems) { checklistItem in
+                    HStack {
+                        Text(checklistItem.name)
+                        
+                        Spacer()
+                            .background(Color.white)
+                        
+                        checklistItem.isChecked ? Text("✅") : Text("❎")
+                    }
+                    .background(Color.white)
+                    .onTapGesture {
+                        if let matchingIndex = self.checklistItems.firstIndex(where: {
+                            $0.id == checklistItem.id
+                        }) {
+                            checklistItems[matchingIndex].isChecked.toggle()
+                        }
+                        printChecklistContents()
+                    }
                 }
                 .onDelete(perform: { indexSet in
                     deleteListItem(whichElement: indexSet)
@@ -40,25 +67,37 @@ struct ContentView: View {
             }
         }
     }
-    
+
     // Methods
     func printChecklistContents() {
         for item in checklistItems {
             print(item)
         }
     }
-    
+
     func deleteListItem(whichElement: IndexSet) {
         checklistItems.remove(atOffsets: whichElement)
         printChecklistContents()
     }
-    
+
     func moveListItem(whichElement: IndexSet, destination: Int) {
         checklistItems.move(fromOffsets: whichElement, toOffset: destination)
         printChecklistContents()
     }
+    
+    func changeIsChecked(whichElement: IndexSet) {
+        guard whichElement.first == whichElement.last else {
+            return
+        }
+        guard let index = whichElement.first else {
+            return
+        }
+
+        checklistItems[index].isChecked = !checklistItems[index].isChecked
+    }
 }
 
+// Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
