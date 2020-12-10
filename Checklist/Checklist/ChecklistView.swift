@@ -17,24 +17,9 @@ struct ChecklistView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(checklist.items) { checklistItem in
-                    HStack {
-                        Text(checklistItem.name)
-                        
-                        Spacer()
-                            .background(Color.white)
-                        
-                        checklistItem.isChecked ? Text("✅") : Text("❎")
-                    }
-                    .background(Color.white)
-                    .onTapGesture {
-                        if let matchingIndex = checklist.items.firstIndex(where: {
-                            $0.id == checklistItem.id
-                        }) {
-                            checklist.items[matchingIndex].isChecked.toggle()
-                        }
-                        checklist.printChecklistContents()
-                    }
+                ForEach(checklist.items) { index in
+                    RowView(checklistItem: self.$checklist.items[index])
+//                    .background(Color.white)
                 }
                 .onDelete(perform: { indexSet in
                     checklist.deleteListItem(whichElement: indexSet)
@@ -48,10 +33,10 @@ struct ChecklistView: View {
             true }) {
                 HStack {
                   Image(systemName: "plus.circle.fill")
+                    
                   Text("Add item")
                 }
-            },
-              trailing: EditButton())
+              }, trailing: EditButton())
             .navigationBarTitle("Checklist", displayMode: .inline)
             .onAppear() {
                 checklist.printChecklistContents()
