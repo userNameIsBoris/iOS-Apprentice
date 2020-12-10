@@ -12,6 +12,7 @@
 		A13D0040257E58FA00825EC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A13D003F257E58FA00825EC4 /* Assets.xcassets */; };
 		A13D0043257E58FA00825EC4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A13D0042257E58FA00825EC4 /* Preview Assets.xcassets */; };
 		A15C72EC25820E600072068F /* EditChecklistItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C72EB25820E600072068F /* EditChecklistItemView.swift */; };
+		A15C72EF258219C70072068F /* NewChecklistItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15C72EE258219C70072068F /* NewChecklistItemView.swift */; };
 		A172F5CC257FD55F0015002F /* ChecklisItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A172F5CB257FD55F0015002F /* ChecklisItem.swift */; };
 		A172F5CF257FD5CC0015002F /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A172F5CE257FD5CC0015002F /* Checklist.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 		A13D0042257E58FA00825EC4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A13D0044257E58FA00825EC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A15C72EB25820E600072068F /* EditChecklistItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChecklistItemView.swift; sourceTree = "<group>"; };
+		A15C72EE258219C70072068F /* NewChecklistItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChecklistItemView.swift; sourceTree = "<group>"; };
 		A172F5CB257FD55F0015002F /* ChecklisItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklisItem.swift; sourceTree = "<group>"; };
 		A172F5CE257FD5CC0015002F /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,10 +61,11 @@
 			isa = PBXGroup;
 			children = (
 				A13D003B257E58F800825EC4 /* ChecklistApp.swift */,
+				A13D003D257E58F800825EC4 /* ChecklistView.swift */,
+				A15C72EE258219C70072068F /* NewChecklistItemView.swift */,
+				A15C72EB25820E600072068F /* EditChecklistItemView.swift */,
 				A172F5CB257FD55F0015002F /* ChecklisItem.swift */,
 				A172F5CE257FD5CC0015002F /* Checklist.swift */,
-				A13D003D257E58F800825EC4 /* ChecklistView.swift */,
-				A15C72EB25820E600072068F /* EditChecklistItemView.swift */,
 				A13D003F257E58FA00825EC4 /* Assets.xcassets */,
 				A13D0044257E58FA00825EC4 /* Info.plist */,
 				A13D0041257E58FA00825EC4 /* Preview Content */,
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A172F5CF257FD5CC0015002F /* Checklist.swift in Sources */,
+				A15C72EF258219C70072068F /* NewChecklistItemView.swift in Sources */,
 				A172F5CC257FD55F0015002F /* ChecklisItem.swift in Sources */,
 				A13D003E257E58F800825EC4 /* ChecklistView.swift in Sources */,
 				A13D003C257E58F800825EC4 /* ChecklistApp.swift in Sources */,

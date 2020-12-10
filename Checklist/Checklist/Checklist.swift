@@ -33,7 +33,7 @@ class Checklist: ObservableObject {
         items.move(fromOffsets: whichElement, toOffset: destination)
         printChecklistContents()
     }
-    
+
     func changeIsChecked(whichElement: IndexSet) {
         guard whichElement.first == whichElement.last else {
             return
