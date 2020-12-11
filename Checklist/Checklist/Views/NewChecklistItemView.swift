@@ -18,22 +18,31 @@ struct NewChecklistItemView: View {
     var body: some View {
         VStack {
             Text("Add new item")
+                .padding(.top)
+            
             Form {
                 TextField("Enter item name", text: $newItemName)
+
                 Button(action: {
                     let newChecklistItem = ChecklistItem(name: self.newItemName)
                     self.checklist.items.append(newChecklistItem)
-                    self.checklist.printChecklistContents()
                     self.presentationMode.wrappedValue.dismiss()
+//                    self.checklist.printChecklistContents()
                 }) {
                     HStack {
                         Image(systemName: "plus.circle.fill")
+                        
                         Text("Add item")
                     }
                 }
                 .disabled(newItemName.count == 0)
             }
-            Text("Swipe down to cancel.")
+            HStack {
+                Image(systemName: "chevron.down.circle.fill")
+                
+                Text("Swipe down to cancel")
+            }
+            .padding(.bottom)
         }
     }
 }

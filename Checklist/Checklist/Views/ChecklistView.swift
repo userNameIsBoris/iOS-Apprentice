@@ -19,7 +19,6 @@ struct ChecklistView: View {
             List {
                 ForEach(checklist.items) { index in
                     RowView(checklistItem: self.$checklist.items[index])
-//                    .background(Color.white)
                 }
                 .onDelete(perform: { indexSet in
                     checklist.deleteListItem(whichElement: indexSet)
@@ -28,15 +27,15 @@ struct ChecklistView: View {
                     checklist.moveListItem(whichElement: indices, destination: newOffset)
                 })
             }
-            .navigationBarItems(
-              leading: Button(action: { self.newChecklistItemViewIsVisible =
-            true }) {
+            .navigationBarItems(leading: Button(action: { self.newChecklistItemViewIsVisible = true
+            }) {
                 HStack {
                   Image(systemName: "plus.circle.fill")
                     
                   Text("Add item")
                 }
               }, trailing: EditButton())
+            .accentColor(.accentColor)
             .navigationBarTitle("Checklist", displayMode: .inline)
             .onAppear() {
                 checklist.printChecklistContents()

@@ -9,14 +9,19 @@ import Foundation
 
 class Checklist: ObservableObject {
     // Properties
-    @Published var items = [
-        ChecklistItem(name: "Walk the dog", isChecked: false),
-          ChecklistItem(name: "Brush my teeth", isChecked: false),
-          ChecklistItem(name: "Learn iOS development", isChecked: true),
-          ChecklistItem(name: "Soccer practice", isChecked: false),
-          ChecklistItem(name: "Eat ice cream", isChecked: false),
-    ]
+    @Published var items: [ChecklistItem] = [] {
+        didSet {
+            saveListItems()
+        }
+    }
 
+    // Initializers
+    init() {
+        print("Documents directory is: \(documentDirectory())")
+        print("Data file path is: \(dataFilePath())")
+        loadListItems()
+    }
+    
     // Methods
     func printChecklistContents() {
         for item in items {
@@ -26,22 +31,48 @@ class Checklist: ObservableObject {
 
     func deleteListItem(whichElement: IndexSet) {
         items.remove(atOffsets: whichElement)
-        printChecklistContents()
+//        printChecklistContents()
     }
 
     func moveListItem(whichElement: IndexSet, destination: Int) {
         items.move(fromOffsets: whichElement, toOffset: destination)
-        printChecklistContents()
+//        printChecklistContents()
+    }
+    
+    func documentDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(paths)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> URL {
+        return documentDirectory().appendingPathComponent("Checklist.plist")
+    }
+    
+    func saveListItems() {
+        let encoder = PropertyListEncoder()
+
+        do {
+            let data = try encoder.encode(items)
+            try data.write(to: dataFilePath(), options: Data.WritingOptions.atomic)
+        } catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
     }
 
-    func changeIsChecked(whichElement: IndexSet) {
-        guard whichElement.first == whichElement.last else {
+    func loadListItems() {
+        let path = dataFilePath()
+        
+        guard let data = try? Data(contentsOf: path) else {
             return
         }
-        guard let index = whichElement.first else {
-            return
+        
+        let decoder = PropertyListDecoder()
+        
+        do {
+            items = try decoder.decode([ChecklistItem].self, from: data)
+        } catch {
+            print("Error decoding item array: \(error.localizedDescription)")
         }
-
-        items[index].isChecked = !items[index].isChecked
     }
 }
