@@ -17,43 +17,45 @@ class Checklist: ObservableObject {
 
     // Initializers
     init() {
-        print("Documents directory is: \(documentDirectory())")
-        print("Data file path is: \(dataFilePath())")
+//        print("Documents directory is: \(documentDirectory())")
+//        print("Data file path is: \(dataFilePath())")
         loadListItems()
     }
-    
+
     // Methods
     func printChecklistContents() {
+        print()
+        print("Beginning ———————————————————————————————————————————")
         for item in items {
             print(item)
         }
+        print("End —————————————————————————————————————————————————")
     }
 
     func deleteListItem(whichElement: IndexSet) {
         items.remove(atOffsets: whichElement)
-//        printChecklistContents()
+        printChecklistContents()
     }
-    
+
     func deleteAllItems() {
         items.removeAll()
-//        printChecklistContents()
+        printChecklistContents()
     }
 
     func moveListItem(whichElement: IndexSet, destination: Int) {
         items.move(fromOffsets: whichElement, toOffset: destination)
-//        printChecklistContents()
+        printChecklistContents()
     }
-    
+
     func documentDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        print(paths)
         return paths[0]
     }
-    
+
     func dataFilePath() -> URL {
         return documentDirectory().appendingPathComponent("Checklist.plist")
     }
-    
+
     func saveListItems() {
         let encoder = PropertyListEncoder()
 
@@ -67,13 +69,13 @@ class Checklist: ObservableObject {
 
     func loadListItems() {
         let path = dataFilePath()
-        
+
         guard let data = try? Data(contentsOf: path) else {
             return
         }
-        
+
         let decoder = PropertyListDecoder()
-        
+
         do {
             items = try decoder.decode([ChecklistItem].self, from: data)
         } catch {

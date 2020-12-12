@@ -22,19 +22,13 @@ struct ChecklistView: View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(checklist.items) { index in
-                        RowView(checklistItem: self.$checklist.items[index])
-                    }
-                    .onDelete(perform: { indexSet in
-                        checklist.deleteListItem(whichElement: indexSet)
-                    })
-                    .onMove(perform: { indices, newOffset in
-                        checklist.moveListItem(whichElement: indices, destination: newOffset)
-                    })
+                    ForEach(checklist.items) { RowView(checklistItem: $checklist.items[$0]) }
+                        .onDelete(perform: { checklist.deleteListItem(whichElement: $0) })
+                        .onMove(perform: { checklist.moveListItem(whichElement: $0, destination: $1) })
                 }
-                
+
                 // Navigation Bar Items
-                
+
                 // Leading item
                 .navigationBarItems(leading: Button(action: {
                     if isEditing {
@@ -42,16 +36,16 @@ struct ChecklistView: View {
                     } else {
                         newChecklistItemViewIsVisible = true
                     }
-                }) {
+                }, label: {
                     HStack {
                         Image(systemName: (isEditing ? "minus.circle.fill" : "plus.circle.fill"))
-                        
+
                         Text(isEditing ? "Delete all" : "Add item")
                     }
-                    .foregroundColor(isEditing ? (isDisabled ? .none : .red) : .none)
-                }
+                    .foregroundColor(isEditing ? (isDisabled ? .gray : .red) : .accentColor)
+                })
                 .disabled(isDisabled),
-                
+
                 // Trailing item
                 trailing: Button(action: {
                     isEditing.toggle()
@@ -60,14 +54,11 @@ struct ChecklistView: View {
                 }))
                 .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
                 .animation(Animation.default)
-                
+
                 .navigationBarTitle("Checklist", displayMode: .inline)
-                .accentColor(.accentColor)
             }
         }
-        .sheet(isPresented: $newChecklistItemViewIsVisible, content: {
-            NewChecklistItemView(checklist: self.checklist)
-        })
+        .sheet(isPresented: $newChecklistItemViewIsVisible, content: { NewChecklistItemView(checklist: checklist) })
     }
 }
 
@@ -78,4 +69,3 @@ struct ContentView_Previews: PreviewProvider {
             .previewDevice("iPhone 12 Pro")
     }
 }
-

@@ -8,25 +8,19 @@
 import SwiftUI
 
 struct RowView: View {
-    
+
     // Properties
     @Binding var checklistItem: ChecklistItem
-    
+
     // UI content and layout
     var body: some View {
         NavigationLink(destination: EditChecklistItemView(checklistItem: $checklistItem)) {
             HStack {
                 Text(checklistItem.name)
-                
+
                 Spacer()
-                
-                if checklistItem.isChecked {
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.green)
-                } else {
-                    Image(systemName: "x.circle.fill")
-                        .foregroundColor(.red)
-                }
+
+                checklistItem.isChecked ? Image(systemName: "checkmark.circle.fill").foregroundColor(.green) : Image(systemName: "x.circle.fill").foregroundColor(.red)
             }
         }
     }
