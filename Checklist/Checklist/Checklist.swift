@@ -33,6 +33,11 @@ class Checklist: ObservableObject {
         items.remove(atOffsets: whichElement)
 //        printChecklistContents()
     }
+    
+    func deleteAllItems() {
+        items.removeAll()
+//        printChecklistContents()
+    }
 
     func moveListItem(whichElement: IndexSet, destination: Int) {
         items.move(fromOffsets: whichElement, toOffset: destination)

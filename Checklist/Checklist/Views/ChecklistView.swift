@@ -12,33 +12,57 @@ struct ChecklistView: View {
     // Properties
     @ObservedObject var checklist = Checklist()
     @State var newChecklistItemViewIsVisible = false
+    @State var isEditing = false
+    var isDisabled: Bool {
+        isEditing && checklist.items.count == 0 ? true : false
+    }
 
     // UI content and layout
     var body: some View {
         NavigationView {
-            List {
-                ForEach(checklist.items) { index in
-                    RowView(checklistItem: self.$checklist.items[index])
+            VStack {
+                List {
+                    ForEach(checklist.items) { index in
+                        RowView(checklistItem: self.$checklist.items[index])
+                    }
+                    .onDelete(perform: { indexSet in
+                        checklist.deleteListItem(whichElement: indexSet)
+                    })
+                    .onMove(perform: { indices, newOffset in
+                        checklist.moveListItem(whichElement: indices, destination: newOffset)
+                    })
                 }
-                .onDelete(perform: { indexSet in
-                    checklist.deleteListItem(whichElement: indexSet)
-                })
-                .onMove(perform: { indices, newOffset in
-                    checklist.moveListItem(whichElement: indices, destination: newOffset)
-                })
-            }
-            .navigationBarItems(leading: Button(action: { self.newChecklistItemViewIsVisible = true
-            }) {
-                HStack {
-                  Image(systemName: "plus.circle.fill")
-                    
-                  Text("Add item")
+                
+                // Navigation Bar Items
+                
+                // Leading item
+                .navigationBarItems(leading: Button(action: {
+                    if isEditing {
+                        checklist.deleteAllItems()
+                    } else {
+                        newChecklistItemViewIsVisible = true
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: (isEditing ? "minus.circle.fill" : "plus.circle.fill"))
+                        
+                        Text(isEditing ? "Delete all" : "Add item")
+                    }
+                    .foregroundColor(isEditing ? (isDisabled ? .none : .red) : .none)
                 }
-              }, trailing: EditButton())
-            .accentColor(.accentColor)
-            .navigationBarTitle("Checklist", displayMode: .inline)
-            .onAppear() {
-                checklist.printChecklistContents()
+                .disabled(isDisabled),
+                
+                // Trailing item
+                trailing: Button(action: {
+                    isEditing.toggle()
+                }, label: {
+                    Text(isEditing ? "Done" : "Edit")
+                }))
+                .environment(\.editMode, .constant(isEditing ? EditMode.active : EditMode.inactive))
+                .animation(Animation.default)
+                
+                .navigationBarTitle("Checklist", displayMode: .inline)
+                .accentColor(.accentColor)
             }
         }
         .sheet(isPresented: $newChecklistItemViewIsVisible, content: {
