@@ -13,6 +13,11 @@ struct ChecklistView: View {
     @ObservedObject var checklist = Checklist()
     @State var newChecklistItemViewIsVisible = false
     @State var isEditing = false
+    @State var alertIsVisible = false {
+        didSet {
+            print(alertIsVisible)
+        }
+    }
     var isDisabled: Bool {
         isEditing && checklist.items.count == 0 ? true : false
     }
@@ -27,12 +32,12 @@ struct ChecklistView: View {
                         .onMove(perform: { checklist.moveListItem(whichElement: $0, destination: $1) })
                 }
 
-                // Navigation Bar Items
+                // Navigation bar items
 
                 // Leading item
                 .navigationBarItems(leading: Button(action: {
                     if isEditing {
-                        checklist.deleteAllItems()
+                        alertIsVisible = true
                     } else {
                         newChecklistItemViewIsVisible = true
                     }
@@ -44,7 +49,12 @@ struct ChecklistView: View {
                     }
                     .foregroundColor(isEditing ? (isDisabled ? .gray : .red) : .accentColor)
                 })
-                .disabled(isDisabled),
+                .disabled(isDisabled)
+                .alert(isPresented: $alertIsVisible, content: {
+                    Alert(title: Text("Are you sure?"), primaryButton: .destructive(Text("Delete all"), action: {
+                        checklist.deleteAllItems()
+                    }), secondaryButton: .default(Text("Cancel")))
+                }),
 
                 // Trailing item
                 trailing: Button(action: {
