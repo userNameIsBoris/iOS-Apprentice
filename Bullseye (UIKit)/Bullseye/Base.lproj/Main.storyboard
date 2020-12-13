@@ -70,6 +70,9 @@
                                 <rect key="frame" x="105" y="290" width="68" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start over"/>
+                                <connections>
+                                    <action selector="startOver:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CSD-P5-1Jl"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="khl-9d-Ygj">
                                 <rect key="frame" x="86" y="138" width="8" height="21"/>
@@ -101,7 +104,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="roundLabel" destination="NIj-IS-tcw" id="A9Q-NN-VOn"/>
+                        <outlet property="scoreLabel" destination="wL7-bX-dta" id="IAW-M9-zcd"/>
                         <outlet property="slider" destination="Uwl-Iy-Bbt" id="aIb-UP-hHy"/>
+                        <outlet property="targetLabel" destination="fxl-ZO-7Ji" id="Ztb-VH-US1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
