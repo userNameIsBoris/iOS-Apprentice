@@ -19,8 +19,9 @@ struct RowView: View {
                 Text(checklistItem.name)
 
                 Spacer()
-
-                checklistItem.isChecked ? Image(systemName: "checkmark.circle.fill").foregroundColor(.green) : Image(systemName: "x.circle.fill").foregroundColor(.red)
+                
+                Image(systemName: checklistItem.isChecked ? "checkmark.circle.fill" : "x.circle.fill")
+                    .foregroundColor(checklistItem.isChecked ? .green : .red)
             }
         }
     }

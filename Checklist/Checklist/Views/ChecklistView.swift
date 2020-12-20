@@ -13,11 +13,7 @@ struct ChecklistView: View {
     @ObservedObject var checklist = Checklist()
     @State var newChecklistItemViewIsVisible = false
     @State var isEditing = false
-    @State var alertIsVisible = false {
-        didSet {
-            print(alertIsVisible)
-        }
-    }
+    @State var alertIsVisible = false
     var isDisabled: Bool {
         isEditing && checklist.items.count == 0 ? true : false
     }
