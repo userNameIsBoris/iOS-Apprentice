@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/boris/Library/Mobile Documents/com~apple~CloudDocs/Xcode/iOS Apprentice/Bullseye (UIKit)/Bullseye/Bullseye.html">
+   </FileRef>
+   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

@@ -37,6 +37,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         startNewGame()
+
+        // Thumb image for slider
+        let thumbImageNormal = UIImage(named: "SliderThumb-Normal")!
+        let thumbImageHighlighted = UIImage(named: "SliderThumb-Highlighted")!
+
+        // Track image for slider
+        let sliderTrackLeft = UIImage(named: "SliderTrackLeft")!
+        let sliderTrackRight = UIImage(named: "SliderTrackRight")!
+
+        // Track image adjustments
+        let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+        let sliderTrackLeftResizable = sliderTrackLeft.resizableImage(withCapInsets: insets)
+        let sliderTrackRightResizable = sliderTrackRight.resizableImage(withCapInsets: insets)
+
+        // Applying changes to the slider
+        slider.setThumbImage(thumbImageNormal, for: .normal)
+        slider.setThumbImage(thumbImageHighlighted, for: .highlighted)
+        slider.setMinimumTrackImage(sliderTrackLeftResizable, for: .normal)
+        slider.setMaximumTrackImage(sliderTrackRightResizable, for: .normal)
     }
 
     @IBAction func sliderMoved(_ sender: UISlider) {
