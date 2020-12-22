@@ -9,8 +9,37 @@ import UIKit
 
 class HighScoresViewController: UITableViewController {
 
+    var items: [HighScoreItem] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let item0 = HighScoreItem()
+        let item1 = HighScoreItem()
+        let item2 = HighScoreItem()
+        let item3 = HighScoreItem()
+        let item4 = HighScoreItem()
+        let item5 = HighScoreItem()
+
+        item0.name = "The reader of this book"
+        item0.score = 50000
+        item1.name = "Manda"
+        item1.score = 10000
+        item2.name = "Joey"
+        item2.score = 5000
+        item3.name = "Adam"
+        item3.score = 1000
+        item4.name = "Eli"
+        item4.score = 500
+        item5.name = "Noob"
+        item5.score = 0
+
+        items.append(item0)
+        items.append(item1)
+        items.append(item2)
+        items.append(item3)
+        items.append(item4)
+        items.append(item5)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -26,36 +55,20 @@ class HighScoresViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return items.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HighScoreItem", for: indexPath)
 
+        let item = items[indexPath.row]
+
         let nameLabel = cell.viewWithTag(1000) as! UILabel
         let scoreLabel = cell.viewWithTag(2000) as! UILabel
 
-        switch indexPath.row {
-        case 0:
-            nameLabel.text = "Boris"
-            scoreLabel.text = "50000"
-        case 1:
-            nameLabel.text = "Manda"
-            scoreLabel.text = "10000"
-        case 2:
-            nameLabel.text = "Joey"
-            scoreLabel.text = "5000"
-        case 3:
-            nameLabel.text = "Adam"
-            scoreLabel.text = "1000"
-        case 4:
-            nameLabel.text = "Eli"
-            scoreLabel.text = "500"
-        default:
-            break
-        }
-        
-        
+        nameLabel.text = item.name
+        scoreLabel.text = String(item.score)
+
         return cell
     }
 
