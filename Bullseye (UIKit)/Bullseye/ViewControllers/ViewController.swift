@@ -104,6 +104,8 @@ class ViewController: UIViewController {
     }
 
     func startNewGame() {
+        addHighScore(score)
+
         targetValue = Int.random(in: 1...100)
         sliderValue = 50
         score = 0
@@ -116,6 +118,21 @@ class ViewController: UIViewController {
         slider.value = Float(sliderValue)
         scoreLabel.text = String(score)
         roundLabel.text = String(round)
+    }
+
+    func addHighScore(_ score: Int) {
+        guard score > 0 else {
+            return
+        }
+
+        let highScore = HighScoreItem()
+        highScore.score = score
+        highScore.name = "Unknown"
+
+        var highScores = PersistencyHelper.loadHighScores()
+        highScores.append(highScore)
+        highScores.sort(by: { $0.score > $1.score })
+        PersistencyHelper.saveHighScores(highScores)
     }
 }
 

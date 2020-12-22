@@ -13,39 +13,10 @@ class HighScoresViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let item0 = HighScoreItem()
-        let item1 = HighScoreItem()
-        let item2 = HighScoreItem()
-        let item3 = HighScoreItem()
-        let item4 = HighScoreItem()
-        let item5 = HighScoreItem()
-
-        item0.name = "The reader of this book"
-        item0.score = 50000
-        item1.name = "Manda"
-        item1.score = 10000
-        item2.name = "Joey"
-        item2.score = 5000
-        item3.name = "Adam"
-        item3.score = 1000
-        item4.name = "Eli"
-        item4.score = 500
-        item5.name = "Noob"
-        item5.score = 0
-
-        items.append(item0)
-        items.append(item1)
-        items.append(item2)
-        items.append(item3)
-        items.append(item4)
-        items.append(item5)
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        items = PersistencyHelper.loadHighScores()
+        if items.count == 0 {
+            resetHighScores()
+        }
     }
 
     // MARK: - Table view data source
@@ -78,23 +49,56 @@ class HighScoresViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
+
+        let indexPaths = [indexPath]
+
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+
+        PersistencyHelper.saveHighScores(items)
+    }
+    
+    // MARK: - Actions
+
+    @IBAction func resetHighScores() {
+        items = [HighScoreItem]()
+        let item0 = HighScoreItem()
+        let item1 = HighScoreItem()
+        let item2 = HighScoreItem()
+        let item3 = HighScoreItem()
+        let item4 = HighScoreItem()
+        let item5 = HighScoreItem()
+
+        item0.name = "The reader of this book"
+        item0.score = 50000
+        item1.name = "Manda"
+        item1.score = 10000
+        item2.name = "Joey"
+        item2.score = 5000
+        item3.name = "Adam"
+        item3.score = 1000
+        item4.name = "Eli"
+        item4.score = 500
+        item5.name = "Noob"
+        item5.score = 0
+
+        items.append(item0)
+        items.append(item1)
+        items.append(item2)
+        items.append(item3)
+        items.append(item4)
+        items.append(item5)
+
+        tableView.reloadData()
+        PersistencyHelper.saveHighScores(items)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
     }
     */
 

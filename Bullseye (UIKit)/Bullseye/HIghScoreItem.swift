@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HighScoreItem {
+class HighScoreItem: Codable {
     var name = ""
     var score = 0
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A11E20F1258F829C006AE2EE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11E20F0258F829C006AE2EE /* AboutViewController.swift */; };
 		A11E20FB258F8FEC006AE2EE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A11E20FA258F8FEC006AE2EE /* WebKit.framework */; };
+		A13A003D2591FC1E00B10FCC /* PersistencyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A003C2591FC1E00B10FCC /* PersistencyHelper.swift */; };
+		A13A00412592094E00B10FCC /* EditHighScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13A00402592094E00B10FCC /* EditHighScoreViewController.swift */; };
 		A174CC2F258F925D00E56CDF /* Bullseye.html in Resources */ = {isa = PBXBuildFile; fileRef = A174CC2E258F925D00E56CDF /* Bullseye.html */; };
 		A174CC33258FA8D300E56CDF /* HighScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A174CC32258FA8D300E56CDF /* HighScoresViewController.swift */; };
 		A175303525860502007F713C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175303425860502007F713C /* AppDelegate.swift */; };
@@ -23,6 +25,8 @@
 /* Begin PBXFileReference section */
 		A11E20F0258F829C006AE2EE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A11E20FA258F8FEC006AE2EE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		A13A003C2591FC1E00B10FCC /* PersistencyHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistencyHelper.swift; sourceTree = "<group>"; };
+		A13A00402592094E00B10FCC /* EditHighScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHighScoreViewController.swift; sourceTree = "<group>"; };
 		A174CC2E258F925D00E56CDF /* Bullseye.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Bullseye.html; sourceTree = "<group>"; };
 		A174CC32258FA8D300E56CDF /* HighScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoresViewController.swift; sourceTree = "<group>"; };
 		A175303125860502007F713C /* Bullseye.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bullseye.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,9 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				A175303825860502007F713C /* ViewController.swift */,
-				A174CC32258FA8D300E56CDF /* HighScoresViewController.swift */,
-				A1D3D8052591CE0200290139 /* HIghScoreItem.swift */,
 				A11E20F0258F829C006AE2EE /* AboutViewController.swift */,
+				A174CC32258FA8D300E56CDF /* HighScoresViewController.swift */,
+				A13A00402592094E00B10FCC /* EditHighScoreViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -91,6 +95,8 @@
 				A175303425860502007F713C /* AppDelegate.swift */,
 				A175303625860502007F713C /* SceneDelegate.swift */,
 				A11E20FC258F8FFB006AE2EE /* ViewControllers */,
+				A1D3D8052591CE0200290139 /* HIghScoreItem.swift */,
+				A13A003C2591FC1E00B10FCC /* PersistencyHelper.swift */,
 				A175303A25860502007F713C /* Main.storyboard */,
 				A175303D25860503007F713C /* Assets.xcassets */,
 				A175303F25860503007F713C /* LaunchScreen.storyboard */,
@@ -172,10 +178,12 @@
 			files = (
 				A174CC33258FA8D300E56CDF /* HighScoresViewController.swift in Sources */,
 				A175303925860502007F713C /* ViewController.swift in Sources */,
+				A13A003D2591FC1E00B10FCC /* PersistencyHelper.swift in Sources */,
 				A175303525860502007F713C /* AppDelegate.swift in Sources */,
 				A11E20F1258F829C006AE2EE /* AboutViewController.swift in Sources */,
 				A175303725860502007F713C /* SceneDelegate.swift in Sources */,
 				A1D3D8062591CE0200290139 /* HIghScoreItem.swift in Sources */,
+				A13A00412592094E00B10FCC /* EditHighScoreViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
