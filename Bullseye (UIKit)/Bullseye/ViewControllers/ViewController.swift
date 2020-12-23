@@ -104,12 +104,18 @@ class ViewController: UIViewController {
     }
 
     func startNewGame() {
+        let transition = CATransition()
+        transition.type = CATransitionType.fade
+        transition.duration = 0.5
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        view.layer.add(transition, forKey: nil)
+
         addHighScore(score)
 
         targetValue = Int.random(in: 1...100)
         sliderValue = 50
         score = 0
-        round = 0 // 1
+        round = 0
         updateLabels()
     }
 

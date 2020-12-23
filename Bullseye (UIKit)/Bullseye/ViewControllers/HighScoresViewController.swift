@@ -87,17 +87,18 @@ class HighScoresViewController: UITableViewController, EditHighScoreViewControll
     }
 
     // MARK: - Edit High Score ViewController Delegates
-    func editHighScoreViewControllerDidCancel(_ controller: EditHighScoreViewController) {
-        navigationController?.popViewController(animated: true)
-    }
-
     func editHighScoreViewController(_ controller: EditHighScoreViewController, didFinishEditing item: HighScoreItem) {
         if let index = items.firstIndex(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             let indexPaths = [indexPath]
             tableView.reloadRows(at: indexPaths, with: .automatic)
         }
+
         PersistencyHelper.saveHighScores(items)
+        navigationController?.popViewController(animated: true)
+    }
+
+    func editHighScoreViewControllerDidCancel(_ controller: EditHighScoreViewController) {
         navigationController?.popViewController(animated: true)
     }
 

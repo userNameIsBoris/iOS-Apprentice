@@ -52,6 +52,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A115DAD72593BBA000D3B3E1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A1D3D8052591CE0200290139 /* HIghScoreItem.swift */,
+				A13A003C2591FC1E00B10FCC /* PersistencyHelper.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A11E20F9258F8FEC006AE2EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,11 +104,10 @@
 				A175303425860502007F713C /* AppDelegate.swift */,
 				A175303625860502007F713C /* SceneDelegate.swift */,
 				A11E20FC258F8FFB006AE2EE /* ViewControllers */,
-				A1D3D8052591CE0200290139 /* HIghScoreItem.swift */,
-				A13A003C2591FC1E00B10FCC /* PersistencyHelper.swift */,
+				A115DAD72593BBA000D3B3E1 /* Model */,
 				A175303A25860502007F713C /* Main.storyboard */,
-				A175303D25860503007F713C /* Assets.xcassets */,
 				A175303F25860503007F713C /* LaunchScreen.storyboard */,
+				A175303D25860503007F713C /* Assets.xcassets */,
 				A175304225860503007F713C /* Info.plist */,
 			);
 			path = Bullseye;
