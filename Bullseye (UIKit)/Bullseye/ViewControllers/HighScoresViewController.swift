@@ -7,8 +7,7 @@
 
 import UIKit
 
-class HighScoresViewController: UITableViewController {
-
+class HighScoresViewController: UITableViewController, EditHighScoreViewControllerDelegate {
     var items: [HighScoreItem] = []
 
     override func viewDidLoad() {
@@ -19,12 +18,7 @@ class HighScoresViewController: UITableViewController {
         }
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
+    // MARK: - Table view data sourcex
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
@@ -44,7 +38,6 @@ class HighScoresViewController: UITableViewController {
     }
 
     // MARK: - Table View Delegate
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -60,7 +53,6 @@ class HighScoresViewController: UITableViewController {
     }
 
     // MARK: - Actions
-
     @IBAction func resetHighScores() {
         items = [HighScoreItem]()
         let item0 = HighScoreItem()
@@ -92,5 +84,29 @@ class HighScoresViewController: UITableViewController {
 
         tableView.reloadData()
         PersistencyHelper.saveHighScores(items)
+    }
+
+    // MARK: - Edit High Score ViewController Delegates
+    func editHighScoreViewControllerDidCancel(_ controller: EditHighScoreViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+
+    func editHighScoreViewController(_ controller: EditHighScoreViewController, didFinishEditing item: HighScoreItem) {
+        if let index = items.firstIndex(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            let indexPaths = [indexPath]
+            tableView.reloadRows(at: indexPaths, with: .automatic)
+        }
+        PersistencyHelper.saveHighScores(items)
+        navigationController?.popViewController(animated: true)
+    }
+
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! EditHighScoreViewController
+        controller.delegate = self
+        if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+            controller.highScoreItem = items[indexPath.row]
+        }
     }
 }
