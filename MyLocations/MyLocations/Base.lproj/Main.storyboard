@@ -39,31 +39,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHQ-9E-eI1">
-                                <rect key="frame" x="20" y="98" width="63" height="21"/>
+                                <rect key="frame" x="20" y="100" width="63" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Latitude)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfQ-c0-J68">
-                                <rect key="frame" x="280" y="98" width="75" height="21"/>
+                                <rect key="frame" x="280" y="100" width="75" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAQ-xq-ibB">
-                                <rect key="frame" x="20" y="139" width="77" height="21"/>
+                                <rect key="frame" x="20" y="141" width="77" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Longitude)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdz-yS-5tS">
-                                <rect key="frame" x="266" y="139" width="89" height="21"/>
+                                <rect key="frame" x="266" y="141" width="89" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTP-VO-aUR">
-                                <rect key="frame" x="143.5" y="311" width="88" height="30"/>
+                                <rect key="frame" x="143.5" y="378" width="88" height="30"/>
                                 <state key="normal" title="Tag Location"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7i-Tu-650">
@@ -73,8 +73,8 @@
                                     <action selector="getLocation" destination="t3a-bw-lDp" eventType="touchUpInside" id="wok-Bd-9cl"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Address)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycv-jB-GhA">
-                                <rect key="frame" x="20" y="235" width="75" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Address)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycv-jB-GhA">
+                                <rect key="frame" x="20" y="237" width="75" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -83,28 +83,27 @@
                         <viewLayoutGuide key="safeArea" id="J8d-xd-PRj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="g7i-Tu-650" firstAttribute="top" relation="greaterThanOrEqual" secondItem="UTP-VO-aUR" secondAttribute="bottom" constant="20" id="0to-h8-lts"/>
+                            <constraint firstItem="g7i-Tu-650" firstAttribute="top" secondItem="UTP-VO-aUR" secondAttribute="bottom" constant="140" id="0to-h8-lts"/>
                             <constraint firstItem="J8d-xd-PRj" firstAttribute="trailing" secondItem="Kdz-yS-5tS" secondAttribute="trailing" constant="20" id="6fU-qO-St5"/>
                             <constraint firstItem="K74-ud-a57" firstAttribute="top" secondItem="J8d-xd-PRj" secondAttribute="top" constant="20" id="7Ht-7F-v3n"/>
                             <constraint firstItem="BHQ-9E-eI1" firstAttribute="leading" secondItem="J8d-xd-PRj" secondAttribute="leading" constant="20" id="7Wr-GC-eU9"/>
                             <constraint firstItem="J8d-xd-PRj" firstAttribute="trailing" secondItem="KfQ-c0-J68" secondAttribute="trailing" constant="20" id="FYI-dB-6P2"/>
                             <constraint firstItem="UTP-VO-aUR" firstAttribute="centerX" secondItem="ivx-EN-7rL" secondAttribute="centerX" id="GHa-5a-eUt"/>
                             <constraint firstItem="OAQ-xq-ibB" firstAttribute="leading" secondItem="J8d-xd-PRj" secondAttribute="leading" constant="20" id="IwN-L7-1kq"/>
-                            <constraint firstItem="KfQ-c0-J68" firstAttribute="top" secondItem="K74-ud-a57" secondAttribute="bottom" constant="57" id="LeO-6k-vk1"/>
+                            <constraint firstItem="KfQ-c0-J68" firstAttribute="top" secondItem="J8d-xd-PRj" secondAttribute="top" constant="100" id="LeO-6k-vk1"/>
                             <constraint firstItem="ycv-jB-GhA" firstAttribute="leading" secondItem="J8d-xd-PRj" secondAttribute="leading" constant="20" id="PfS-q5-dnU"/>
                             <constraint firstItem="K74-ud-a57" firstAttribute="centerX" secondItem="ivx-EN-7rL" secondAttribute="centerX" id="QJ4-Au-hl4"/>
                             <constraint firstItem="OAQ-xq-ibB" firstAttribute="top" secondItem="BHQ-9E-eI1" secondAttribute="bottom" constant="20" id="URt-5G-Kur"/>
                             <constraint firstItem="ycv-jB-GhA" firstAttribute="top" secondItem="OAQ-xq-ibB" secondAttribute="bottom" constant="75" id="UeJ-Yq-def"/>
-                            <constraint firstItem="BHQ-9E-eI1" firstAttribute="top" secondItem="K74-ud-a57" secondAttribute="bottom" constant="57" id="ge1-Jn-Uhb"/>
+                            <constraint firstItem="BHQ-9E-eI1" firstAttribute="top" secondItem="J8d-xd-PRj" secondAttribute="top" constant="100" id="ge1-Jn-Uhb"/>
                             <constraint firstItem="J8d-xd-PRj" firstAttribute="bottom" secondItem="g7i-Tu-650" secondAttribute="bottom" constant="40" id="ht1-pK-o8a"/>
                             <constraint firstItem="Kdz-yS-5tS" firstAttribute="top" secondItem="KfQ-c0-J68" secondAttribute="bottom" constant="20" id="jBn-Jl-Y1d"/>
                             <constraint firstItem="g7i-Tu-650" firstAttribute="centerX" secondItem="ivx-EN-7rL" secondAttribute="centerX" id="jzd-tG-wqI"/>
-                            <constraint firstItem="UTP-VO-aUR" firstAttribute="top" secondItem="ycv-jB-GhA" secondAttribute="bottom" constant="55" id="kvr-XT-Hsr"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="CSN-0r-y7e"/>
                     <connections>
-                        <outlet property="adressLabel" destination="ycv-jB-GhA" id="NMX-LH-MVu"/>
+                        <outlet property="addressLabel" destination="ycv-jB-GhA" id="NMX-LH-MVu"/>
                         <outlet property="getButton" destination="g7i-Tu-650" id="gGR-g3-Rk4"/>
                         <outlet property="latitudeLabel" destination="KfQ-c0-J68" id="C3T-vl-Vdm"/>
                         <outlet property="longitudeLabel" destination="Kdz-yS-5tS" id="SSv-3O-0W9"/>
