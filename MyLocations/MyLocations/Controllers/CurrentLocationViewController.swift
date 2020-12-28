@@ -32,6 +32,16 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     updateLabels()
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+    navigationController?.isNavigationBarHidden = true
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(true)
+    navigationController?.isNavigationBarHidden = false
+  }
+
   // MARK: - Actions
   @IBAction func getLocation() {
     let authStatus = locationManager.authorizationStatus
@@ -40,12 +50,10 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
       locationManager.requestWhenInUseAuthorization()
       return
     }
-
     if authStatus == .denied || authStatus == .restricted {
       showLocationAccessDeniedAlert()
       return
     }
-
     if updatingLocation {
       stopLocationManager()
     } else {
@@ -133,7 +141,6 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     if let postalCode = placemark.postalCode {
       line2 += postalCode
     }
-    print(line1 + "\n" + line2)
     return line1 + "\n" + line2
   }
 
@@ -143,7 +150,6 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
       locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
       locationManager.startUpdatingLocation()
       updatingLocation = true
-
       timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(didTimeOut), userInfo: nil, repeats: false)
     }
   }
@@ -188,12 +194,12 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     if newLocation.timestamp.timeIntervalSinceNow < -5 {
       return
     }
-
     if newLocation.horizontalAccuracy < 0 {
       return
     }
 
     var distance = CLLocationDistance(Double.greatestFiniteMagnitude)
+
     if let location = location {
       distance = newLocation.distance(from: location)
     }
@@ -232,6 +238,18 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
         stopLocationManager()
         updateLabels()
       }
+    }
+  }
+
+  // MARK: - Navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "TagLocation" {
+      let controller = segue.destination as! LocationDetailsViewController
+      controller.coordinate = location!.coordinate
+      controller.placemark = placemark
+//      controller.latitude = latitudeLabel.text
+//      controller.longitude = longitudeLabel.text
+//      controller.address = addressLabel.text
     }
   }
 }
