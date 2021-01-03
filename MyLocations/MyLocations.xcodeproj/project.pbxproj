@@ -16,6 +16,8 @@
 		A1E084BC2595DB52000ADED6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1E084BB2595DB52000ADED6 /* Assets.xcassets */; };
 		A1E084BF2595DB52000ADED6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E084BD2595DB52000ADED6 /* LaunchScreen.storyboard */; };
 		A1E084C92595DC6D000ADED6 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E084C82595DC6D000ADED6 /* SecondViewController.swift */; };
+		A1F0A89D25A1C86B00B6A1FF /* HUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F0A89C25A1C86B00B6A1FF /* HUDView.swift */; };
+		A1F0A8A025A2059F00B6A1FF /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F0A89F25A2059F00B6A1FF /* Functions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		A1E084BE2595DB52000ADED6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1E084C02595DB52000ADED6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1E084C82595DC6D000ADED6 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		A1F0A89C25A1C86B00B6A1FF /* HUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDView.swift; sourceTree = "<group>"; };
+		A1F0A89F25A2059F00B6A1FF /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +80,9 @@
 				A1E084B22595DB52000ADED6 /* AppDelegate.swift */,
 				A1E084B42595DB52000ADED6 /* SceneDelegate.swift */,
 				A1A0EC6B259A0127003B1449 /* Controllers */,
+				A1F0A89F25A2059F00B6A1FF /* Functions.swift */,
 				A1E084B82595DB52000ADED6 /* Main.storyboard */,
+				A1F0A89C25A1C86B00B6A1FF /* HUDView.swift */,
 				A1E084BD2595DB52000ADED6 /* LaunchScreen.storyboard */,
 				A1E084BB2595DB52000ADED6 /* Assets.xcassets */,
 				A1E084C02595DB52000ADED6 /* Info.plist */,
@@ -154,8 +160,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1F0A89D25A1C86B00B6A1FF /* HUDView.swift in Sources */,
 				A1A0EC69259A011E003B1449 /* CategoryPickerViewController.swift in Sources */,
 				A1E084C92595DC6D000ADED6 /* SecondViewController.swift in Sources */,
+				A1F0A8A025A2059F00B6A1FF /* Functions.swift in Sources */,
 				A1E084B72595DB52000ADED6 /* CurrentLocationViewController.swift in Sources */,
 				A1ADC6DC2598F9F80072AD3B /* LocationDetailsViewController.swift in Sources */,
 				A1E084B32595DB52000ADED6 /* AppDelegate.swift in Sources */,
@@ -309,6 +317,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23PHMUFYTH;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,6 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23PHMUFYTH;
 				INFOPLIST_FILE = MyLocations/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

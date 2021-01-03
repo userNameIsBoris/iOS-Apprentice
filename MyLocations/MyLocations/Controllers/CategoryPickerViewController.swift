@@ -25,7 +25,7 @@ class CategoryPickerViewController: UITableViewController {
   var selectedIndexPath = IndexPath()
 
   override func viewDidLoad() {
-      super.viewDidLoad()
+    super.viewDidLoad()
 
     for i in 0..<categories.count {
       if categories[i] == selectedCategoryName {
@@ -64,9 +64,6 @@ class CategoryPickerViewController: UITableViewController {
       }
       selectedIndexPath = indexPath
     }
-//    if let selectedCell = tableView.cellForRow(at: indexPath) {
-//      selectedCell.isSelected = false
-//    }
   }
 
   // MARK: - Navigation
