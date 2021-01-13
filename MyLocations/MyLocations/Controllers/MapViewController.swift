@@ -12,6 +12,7 @@ import CoreData
 class MapViewController: UIViewController {
   @IBOutlet weak var mapView: MKMapView!
 
+  var locations: [Location] = []
   var managedObjectContext: NSManagedObjectContext! {
     didSet {
       NotificationCenter.default.addObserver(forName: Notification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext, queue: .main) { _ in
@@ -21,8 +22,6 @@ class MapViewController: UIViewController {
       }
     }
   }
-
-  var locations: [Location] = []
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,9 +37,7 @@ class MapViewController: UIViewController {
       center: mapView.userLocation.coordinate,
       latitudinalMeters: 1000,
       longitudinalMeters: 1000)
-    mapView.setRegion(
-      mapView.regionThatFits(region),
-      animated: true)
+    mapView.setRegion(mapView.regionThatFits(region), animated: true)
   }
 
   @IBAction func showLocations() {
@@ -55,6 +52,8 @@ class MapViewController: UIViewController {
       controller.managedObjectContext = managedObjectContext
       let button = sender as! UIButton
       let location = locations[button.tag]
+      print("!!! Locations: \(locations)\n tag: \(button.tag)")
+      print(button.tag)
       controller.locationToEdit = location
     }
   }
@@ -85,14 +84,9 @@ class MapViewController: UIViewController {
         center: annotation.coordinate,
         latitudinalMeters: 1000,
         longitudinalMeters: 1000)
-
     default:
-      var topLeft = CLLocationCoordinate2D(
-        latitude: -90,
-        longitude: 180)
-      var bottomRight = CLLocationCoordinate2D(
-        latitude: 90,
-        longitude: -180)
+      var topLeft = CLLocationCoordinate2D(latitude: -90, longitude: 180)
+      var bottomRight = CLLocationCoordinate2D(latitude: 90, longitude: -180)
 
       for annotation in annotations {
         topLeft.latitude = max(topLeft.latitude, annotation.coordinate.latitude)
@@ -103,7 +97,7 @@ class MapViewController: UIViewController {
       let center = CLLocationCoordinate2D(
         latitude: topLeft.latitude - (topLeft.latitude - bottomRight.latitude) / 2,
         longitude: topLeft.longitude - (topLeft.longitude - bottomRight.longitude) / 2)
-
+      
       let extraSpace = 1.1
       let span = MKCoordinateSpan(
         latitudeDelta: abs(topLeft.latitude - bottomRight.latitude * extraSpace),
@@ -127,39 +121,18 @@ extension MapViewController: MKMapViewDelegate {
 
     let identifier = "Location"
     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-    
+
     if annotationView == nil {
-      let pinView = MKPinAnnotationView( annotation: annotation, reuseIdentifier: identifier)
+      let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
 
       pinView.isEnabled = true
       pinView.canShowCallout = true
       pinView.animatesDrop = false
       pinView.pinTintColor = UIColor(
-        red: 36 / 255,
-        green: 0 / 255,
-        blue: 179 / 255,
+        red: 11 / 255,
+        green: 130 / 255,
+        blue: 252 / 255,
         alpha: 1)
-//      switch traitCollection.userInterfaceStyle {
-//        case .light:
-//          pinView.pinTintColor = UIColor(
-//            red: 107 / 255,
-//            green: 71 / 255,
-//            blue: 0 / 255,
-//            alpha: 1)
-//        case .dark:
-//          pinView.pinTintColor = UIColor(
-//            red: 251 / 255,
-//            green: 236 / 255,
-//            blue: 148 / 255,
-//            alpha: 1)
-//        @unknown default:
-//          pinView.pinTintColor = UIColor(
-//            red: 36 / 255,
-//            green: 0 / 255,
-//            blue: 179 / 255,
-//            alpha: 1)
-//      }
-
 
       let rightButton = UIButton(type: .detailDisclosure)
       rightButton.addTarget(self, action: #selector(showLocationDetails(_:)), for: .touchUpInside)
