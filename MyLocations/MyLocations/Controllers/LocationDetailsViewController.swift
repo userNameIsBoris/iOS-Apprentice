@@ -114,16 +114,14 @@ class LocationDetailsViewController: UITableViewController {
       if !location.hasPhoto {
         location.photoID = Location.nextPhotoID() as NSNumber
       }
-    }
-
-    if let data = image?.jpegData(compressionQuality: 0) {
-      do {
-        try data.write(to: location.photoURL, options: .atomic)
-      } catch {
-        print("Error writing file: \(error)")
+      if let data = image.jpegData(compressionQuality: 0) {
+        do {
+          try data.write(to: location.photoURL, options: .atomic)
+        } catch {
+          print("Error writing file: \(error)")
+        }
       }
     }
-
     do {
       try managedObjectContext.save()
       afterDelay(0.6, run: {
@@ -159,30 +157,17 @@ class LocationDetailsViewController: UITableViewController {
     }
   }
 
-  // MARK:- Helper Methods
+  // MARK: - Helper Methods
   func string(from placemark: CLPlacemark) -> String {
-    var text = ""
+    var line = ""
+    line.add(text: placemark.subThoroughfare)
+    line.add(text: placemark.thoroughfare, separatedBy: " ")
+    line.add(text: placemark.locality, separatedBy: ", ")
+    line.add(text: placemark.administrativeArea, separatedBy: ", ")
+    line.add(text: placemark.postalCode, separatedBy: " ")
+    line.add(text: placemark.country, separatedBy: ", ")
 
-    if let subThoroughfare = placemark.subThoroughfare {
-      text += subThoroughfare + " "
-    }
-    if let thoroughfare = placemark.thoroughfare {
-      text += thoroughfare + ", "
-    }
-    if let locality = placemark.locality {
-      text += locality + ", "
-    }
-    if let administrativeArea = placemark.administrativeArea {
-      text += administrativeArea + " "
-    }
-    if let postalCode = placemark.postalCode {
-      text += postalCode + ", "
-    }
-    if let country = placemark.country {
-      text += country
-    }
-
-    return text
+    return line
   }
 
   func format(date: Date) -> String {
@@ -240,6 +225,7 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
     imagePicker.sourceType = .camera
     imagePicker.delegate = self
     imagePicker.allowsEditing = true
+    imagePicker.view.tintColor = view.tintColor
     present(imagePicker, animated: true, completion: nil)
   }
 
@@ -248,6 +234,7 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
     imagePicker.sourceType = .photoLibrary
     imagePicker.delegate = self
     imagePicker.allowsEditing = true
+    imagePicker.view.tintColor = view.tintColor
     present(imagePicker, animated: true, completion: nil)
   }
 
