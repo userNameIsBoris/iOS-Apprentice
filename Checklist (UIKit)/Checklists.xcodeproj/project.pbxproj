@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A141697725B425FB0063EB62 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A141697625B425FB0063EB62 /* ChecklistItem.swift */; };
 		A17A95A925B33454009332F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A95A825B33454009332F2 /* AppDelegate.swift */; };
 		A17A95AB25B33454009332F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A95AA25B33454009332F2 /* SceneDelegate.swift */; };
 		A17A95AD25B33454009332F2 /* ChecklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17A95AC25B33454009332F2 /* ChecklistViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A141697625B425FB0063EB62 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
 		A17A95A525B33454009332F2 /* Checklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17A95A825B33454009332F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A17A95AA25B33454009332F2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +39,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A141697925B432CB0063EB62 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A141697625B425FB0063EB62 /* ChecklistItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A141697B25B432D20063EB62 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A17A95AC25B33454009332F2 /* ChecklistViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		A17A959C25B33454009332F2 = {
 			isa = PBXGroup;
 			children = (
@@ -58,7 +76,8 @@
 			children = (
 				A17A95A825B33454009332F2 /* AppDelegate.swift */,
 				A17A95AA25B33454009332F2 /* SceneDelegate.swift */,
-				A17A95AC25B33454009332F2 /* ChecklistViewController.swift */,
+				A141697B25B432D20063EB62 /* Controller */,
+				A141697925B432CB0063EB62 /* Model */,
 				A17A95AE25B33454009332F2 /* Main.storyboard */,
 				A17A95B325B33455009332F2 /* LaunchScreen.storyboard */,
 				A17A95B125B33455009332F2 /* Assets.xcassets */,
@@ -140,6 +159,7 @@
 				A17A95AD25B33454009332F2 /* ChecklistViewController.swift in Sources */,
 				A17A95A925B33454009332F2 /* AppDelegate.swift in Sources */,
 				A17A95AB25B33454009332F2 /* SceneDelegate.swift in Sources */,
+				A141697725B425FB0063EB62 /* ChecklistItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
