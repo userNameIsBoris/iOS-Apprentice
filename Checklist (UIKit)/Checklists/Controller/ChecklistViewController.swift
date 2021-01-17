@@ -21,9 +21,28 @@ class ChecklistViewController: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationController?.navigationBar.barTintColor = .white
     items[1].isChecked = true
     items[4].isChecked = true
   }
+
+  // MARK: Actions
+//  @IBAction func addItem() {
+//    let newRowIndex = items.count
+//
+//    let newItem = ChecklistItem(name: "New row!")
+//    newItem.isChecked = true
+//    items.append(newItem)
+//    items.append(newItem)
+//
+//    let indexPath = IndexPath(row: newRowIndex, section: 0)
+//    let indexPath1 = IndexPath(row: newRowIndex + 1, section: 0)
+//    
+//    let indexPaths = [indexPath, indexPath1]
+//    print(indexPaths)
+//    tableView.insertRows(at: indexPaths, with: .automatic)
+//  }
 
   // MARK: - Helper Methods
 
@@ -62,5 +81,12 @@ class ChecklistViewController: UITableViewController {
     configureCheckmark(cell: cell, withItem: item)
 
     tableView.deselectRow(at: indexPath, animated: true)
+  }
+
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    items.remove(at: indexPath.row)
+
+    let indexPaths = [indexPath]
+    tableView.deleteRows(at: indexPaths, with: .automatic)
   }
 }
