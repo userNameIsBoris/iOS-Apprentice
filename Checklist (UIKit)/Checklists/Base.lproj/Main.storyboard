@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="dGa-LJ-NJ0">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="dGa-LJ-NJ0">
                                 <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dGa-LJ-NJ0" id="Ash-rK-FOf">
@@ -60,31 +60,33 @@
         <scene sceneID="iwb-g4-9HV">
             <objects>
                 <tableViewController id="uad-Sv-zJr" customClass="AddItemViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xAm-Nj-f6o">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="xAm-Nj-f6o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <sections>
                             <tableViewSection id="XcS-Uo-E4L">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="D2i-aw-efq">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="43.5" id="D2i-aw-efq">
+                                        <rect key="frame" x="16" y="18" width="343" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D2i-aw-efq" id="Kur-q8-anl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o54-pp-enC">
-                                                    <rect key="frame" x="16" y="4" width="343" height="34.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of the item" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="o54-pp-enC">
+                                                    <rect key="frame" x="16" y="4" width="311" height="35"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <action selector="save" destination="uad-Sv-zJr" eventType="editingDidEndOnExit" id="qWk-3P-TvB"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="o54-pp-enC" firstAttribute="leading" secondItem="Kur-q8-anl" secondAttribute="leading" constant="16" id="1Fd-iD-5m7"/>
-                                                <constraint firstItem="o54-pp-enC" firstAttribute="top" secondItem="Kur-q8-anl" secondAttribute="top" constant="4" id="7Z7-hR-1ke"/>
-                                                <constraint firstAttribute="trailing" secondItem="o54-pp-enC" secondAttribute="trailing" constant="16" id="MY3-hI-RiP"/>
-                                                <constraint firstAttribute="bottom" secondItem="o54-pp-enC" secondAttribute="bottom" constant="5.5" id="xcr-fy-V8H"/>
+                                                <constraint firstAttribute="bottom" secondItem="o54-pp-enC" secondAttribute="bottom" constant="4.5" id="Ffb-ce-kjl"/>
+                                                <constraint firstItem="o54-pp-enC" firstAttribute="leading" secondItem="Kur-q8-anl" secondAttribute="leading" constant="16" id="Hk5-Ec-2y2"/>
+                                                <constraint firstAttribute="trailing" secondItem="o54-pp-enC" secondAttribute="trailing" constant="16" id="Q6D-mc-bPf"/>
+                                                <constraint firstItem="o54-pp-enC" firstAttribute="top" secondItem="Kur-q8-anl" secondAttribute="top" constant="4" id="d1q-mU-KJj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -102,14 +104,15 @@
                                 <action selector="cancel:" destination="uad-Sv-zJr" id="VV5-bi-wgB"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="C8B-aj-IpN">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="C8B-aj-IpN">
                             <connections>
-                                <action selector="save:" destination="uad-Sv-zJr" id="tub-dg-Ifd"/>
+                                <action selector="save" destination="uad-Sv-zJr" id="lPP-h7-fhd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="itemNameTextField" destination="o54-pp-enC" id="Cv4-qx-NlO"/>
+                        <outlet property="saveBarButton" destination="C8B-aj-IpN" id="p5D-me-8r4"/>
+                        <outlet property="textField" destination="o54-pp-enC" id="E8l-54-Bu8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uoc-Fk-Hqk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

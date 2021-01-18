@@ -22,7 +22,6 @@ class ChecklistViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.navigationBar.prefersLargeTitles = true
-    navigationController?.navigationBar.barTintColor = .white
     items[1].isChecked = true
     items[4].isChecked = true
   }
