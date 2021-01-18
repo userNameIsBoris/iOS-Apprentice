@@ -17,7 +17,11 @@ class ChecklistViewController: UITableViewController {
     ChecklistItem(name: "Soccer practice"),
     ChecklistItem(name: "Another one"),
     ChecklistItem(name: "Another two :D"),
-  ]
+  ] {
+    didSet {
+      print(items)
+    }
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,21 +31,6 @@ class ChecklistViewController: UITableViewController {
   }
 
   // MARK: Actions
-//  @IBAction func addItem() {
-//    let newRowIndex = items.count
-//
-//    let newItem = ChecklistItem(name: "New row!")
-//    newItem.isChecked = true
-//    items.append(newItem)
-//    items.append(newItem)
-//
-//    let indexPath = IndexPath(row: newRowIndex, section: 0)
-//    let indexPath1 = IndexPath(row: newRowIndex + 1, section: 0)
-//    
-//    let indexPaths = [indexPath, indexPath1]
-//    print(indexPaths)
-//    tableView.insertRows(at: indexPaths, with: .automatic)
-//  }
 
   // MARK: - Helper Methods
 
@@ -53,6 +42,14 @@ class ChecklistViewController: UITableViewController {
 
   func configureCheckmark(cell: UITableViewCell, withItem item: ChecklistItem) {
     cell.accessoryType = item.isChecked ? .checkmark : .none
+  }
+
+  // MARK: Navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "AddItem" {
+      let controller = segue.destination as! AddItemViewController
+      controller.delegate = self      
+    }
   }
 
   // MARK: - Table View Data Source
@@ -87,5 +84,21 @@ class ChecklistViewController: UITableViewController {
 
     let indexPaths = [indexPath]
     tableView.deleteRows(at: indexPaths, with: .automatic)
+  }
+}
+
+extension ChecklistViewController: AddItemViewControllerDelegate {
+  func AddItemViewControllerDidCancel(_ controller: AddItemViewController) {
+    navigationController?.popViewController(animated: true)
+  }
+  
+  func AddItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem) {
+    let newIndex = items.count
+    items.append(item)
+    let indexPath = IndexPath(row: newIndex, section: 0)
+    let indexPaths = [indexPath]
+    tableView.insertRows(at: indexPaths, with: .automatic)
+
+    navigationController?.popViewController(animated: true)
   }
 }
