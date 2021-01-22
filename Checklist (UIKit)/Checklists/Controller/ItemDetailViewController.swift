@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailViewController.swift
 //  Checklists
 //
 //  Created by Борис on 17.01.2021.
@@ -7,21 +7,30 @@
 
 import UIKit
 
-protocol AddItemViewControllerDelegate: class {
-  func AddItemViewControllerDidCancel(_ controller: AddItemViewController)
-  func AddItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem)
+protocol ItemDetailViewControllerDelegate: class {
+  func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
+  func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
+  func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem)
 }
 
-class AddItemViewController: UITableViewController {
+class ItemDetailViewController: UITableViewController {
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var saveBarButton: UIBarButtonItem!
 
-  weak var delegate: AddItemViewControllerDelegate?
+  weak var delegate: ItemDetailViewControllerDelegate?
+  var itemToEdit: ChecklistItem?
 
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.largeTitleDisplayMode = .never
     textField.delegate = self
+
+    // Configure for edit mode
+    if let item = itemToEdit {
+      textField.text = item.name
+      title = "Edit item"
+      saveBarButton.isEnabled = true
+    }
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -31,13 +40,17 @@ class AddItemViewController: UITableViewController {
 
   // MARK: - Actions
   @IBAction func save() {
-    let item = ChecklistItem(name: textField.text!)
-
-    delegate?.AddItemViewController(self, didFinishAdding: item)
+    if let item = itemToEdit {
+      item.name = textField.text!
+      delegate?.itemDetailViewController(self, didFinishEditing: item)
+    } else {
+      let item = ChecklistItem(name: textField.text!)
+      delegate?.itemDetailViewController(self, didFinishAdding: item)
+    }
   }
-  
+
   @IBAction func cancel(_ sender: UIBarButtonItem) {
-    delegate?.AddItemViewControllerDidCancel(self)
+    delegate?.itemDetailViewControllerDidCancel(self)
   }
 
   // MARK: - Table View Delegates
@@ -46,7 +59,7 @@ class AddItemViewController: UITableViewController {
   }
 }
 
-extension AddItemViewController: UITextFieldDelegate {
+extension ItemDetailViewController: UITextFieldDelegate {
 
   // MARK: - Text Field Delegates
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
