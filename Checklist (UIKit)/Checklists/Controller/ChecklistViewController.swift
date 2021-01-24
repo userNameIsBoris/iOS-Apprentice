@@ -9,28 +9,53 @@ import UIKit
 
 class ChecklistViewController: UITableViewController {
 
-  var items: [ChecklistItem] = [
-    ChecklistItem(name: "Walk the dog"),
-    ChecklistItem(name: "Brush my teeth"),
-    ChecklistItem(name: "Learn iOS development"),
-    ChecklistItem(name: "Eat ice cream"),
-    ChecklistItem(name: "Soccer practice"),
-    ChecklistItem(name: "Another one"),
-    ChecklistItem(name: "Another two :D"),
-  ]
+  var items: [ChecklistItem] = []
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationController?.navigationBar.prefersLargeTitles = true
-    items[1].isChecked = true
-    items[4].isChecked = true
-  }
+    print("Data file path: \(dataFilePath())")
+    loadChecklistItems()
 
-  // MARK: Actions
+    // View setup
+    navigationController?.navigationBar.prefersLargeTitles = true
+    tableView.tableFooterView = UIView()
+  }
 
   // MARK: - Helper Methods
 
-  // MARK: Cell Configure Methods
+  // MARK: Data Persistence
+  func documentsDirectory() -> URL {
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    return paths[0]
+  }
+
+  func dataFilePath() -> URL {
+    return documentsDirectory().appendingPathComponent("Checklists.plist")
+  }
+
+  func saveChecklistItems() {
+    let encoder = PropertyListEncoder()
+
+    do {
+      let data = try encoder.encode(items)
+      try data.write(to: dataFilePath(), options: .atomic)
+    } catch {
+      print("Error encoding item array: \(error)")
+    }
+  }
+
+  func loadChecklistItems() {
+    let path = dataFilePath()
+    guard let data = try? Data(contentsOf: path) else { return }
+    let decoder = PropertyListDecoder()
+    do {
+      items = try decoder.decode([ChecklistItem].self, from: data)
+    } catch {
+      print("Error decoding item array: \(error)")
+    }
+  }
+
+  // MARK: - Cell Configure Methods
   func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
     guard let textLabel = cell.viewWithTag(1000) as? UILabel else { return }
     textLabel.text = item.name
@@ -41,16 +66,16 @@ class ChecklistViewController: UITableViewController {
     checkmarkLabel.text = item.isChecked ? "√" : ""
   }
 
-  // MARK: Navigation
+  // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
-    // Add item segue
+    // Add item
     if segue.identifier == "AddItem" {
       let controller = segue.destination as! ItemDetailViewController
       controller.delegate = self      
     }
 
-    // Edit item segue
+    // Edit item
     if segue.identifier == "EditItem" {
       guard let indexPath = tableView.indexPath(for: sender as! UITableViewCell) else { return }
 
@@ -79,23 +104,27 @@ class ChecklistViewController: UITableViewController {
   // MARK: - Table View Delegates
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let cell = tableView.cellForRow(at: indexPath) else { return }
-    let item = items[indexPath.row]
 
+    let item = items[indexPath.row]
     item.isChecked.toggle()
     configureCheckmark(for: cell, with: item)
-
     tableView.deselectRow(at: indexPath, animated: true)
+
+    saveChecklistItems()
   }
 
   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     items.remove(at: indexPath.row)
-
     let indexPaths = [indexPath]
     tableView.deleteRows(at: indexPaths, with: .automatic)
+
+    saveChecklistItems()
   }
 }
 
 extension ChecklistViewController: ItemDetailViewControllerDelegate {
+
+  // MARK: - Item Detail ViewController Delegates
   func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
     navigationController?.popViewController(animated: true)
   }
@@ -108,6 +137,8 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
     tableView.insertRows(at: indexPaths, with: .automatic)
 
     navigationController?.popViewController(animated: true)
+    saveChecklistItems()
+
   }
 
   func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
@@ -118,7 +149,6 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
       }
     }
     navigationController?.popViewController(animated: true)
+    saveChecklistItems()
   }
 }
-
-

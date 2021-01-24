@@ -66,7 +66,6 @@ extension ItemDetailViewController: UITextFieldDelegate {
     let oldText = textField.text!
     let stringRange = Range(range, in: oldText)!
     let newText = oldText.replacingCharacters(in: stringRange, with: string)
-
     saveBarButton.isEnabled = !newText.isEmpty
 
     return true
