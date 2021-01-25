@@ -8,14 +8,17 @@
 import Foundation
 
 class ChecklistItem: Equatable, Codable {
-  static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
-    return lhs.name == rhs.name && lhs.isChecked == rhs.isChecked
-  }
-
+  var id: UUID
   var name: String
   var isChecked = false
 
   init(name: String) {
+    self.id = UUID()
     self.name = name
+  }
+
+  // Equatable 
+  static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
+    return lhs.id == rhs.id
   }
 }
