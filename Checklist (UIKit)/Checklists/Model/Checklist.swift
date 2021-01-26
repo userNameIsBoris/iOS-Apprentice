@@ -10,6 +10,7 @@ import Foundation
 class Checklist: Equatable, Codable {
   var id: UUID
   var name: String
+  var items: [ChecklistItem] = []
 
   init(name: String) {
     self.id = UUID()
