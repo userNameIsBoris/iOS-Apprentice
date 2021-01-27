@@ -1,7 +1,8 @@
-# iOS Apprentice (Eighth Edition)
-Projects developed during the study of the book iOS Apprentice (Eighth Edition) by the raywenderlich Tutorial Team.
-* Bullseye — SwiftUI   (Section 1: Getting Started with SwiftUI)
-* Checklist — SwiftUI (Section 2: Checklists)
-* Bullseye — UIKit     (Section 3: Getting Started with UIKit)
-* My Locations — UIKit (Section 4: My Locations)
-* Store Search — UIKit (Section 5: Store Search)
+# iOS/UIKit Apprentice by raywenderlich
+Projects developed while studying the raywenderlich's books — iOS Apprentice and UIKit Apprentice.
+* Bullseye — SwiftUI
+* Bullseye — UIKit
+* Checklist — SwiftUI
+* Checklists — UIKit
+* My Locations — UIKit
+* Store Search — UIKit
