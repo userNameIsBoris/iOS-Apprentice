@@ -21,6 +21,19 @@ class AllListsViewController: UITableViewController {
     tableView.tableFooterView = UIView()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    navigationController?.delegate = self
+
+    // Show screen that the user was previously viewing
+    let index = dataModel.indexOfSelectedChecklist
+    if index >= 0 && index < dataModel.lists.count  { // If the user was on the main screen, the value is -1
+      let checklist = dataModel.lists[index]
+      performSegue(withIdentifier: "showChecklist", sender: checklist)
+    }
+  }
+
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
@@ -62,7 +75,7 @@ class AllListsViewController: UITableViewController {
 
   // MARK: Table View Delegates
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+    dataModel.indexOfSelectedChecklist = indexPath.row
     let checklist = dataModel.lists[indexPath.row]
     performSegue(withIdentifier: "showChecklist", sender: checklist)
   }
@@ -106,5 +119,15 @@ extension AllListsViewController: ListDetailViewControllerDelegate {
       }
     }
     navigationController?.popViewController(animated: true)
+  }
+}
+
+extension AllListsViewController: UINavigationControllerDelegate {
+
+  // MARK: - Navigation Controller Delegates
+  func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+    if viewController === self {
+      dataModel.indexOfSelectedChecklist = -1
+    }
   }
 }
