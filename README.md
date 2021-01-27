@@ -1,4 +1,4 @@
-# iOS Apprentice (Eighth Edition)
+# iOS/UIKit Apprentice by raywenderlich
 Projects developed while studying the raywenderlich's books — iOS Apprentice and UIKit Apprentice.
 * Bullseye — SwiftUI
 * Bullseye — UIKit
