@@ -25,6 +25,8 @@ class DataModel {
   }
 
   // MARK: - Methods
+
+  // MARK: Data Persistence
   func documentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     return paths[0]
@@ -50,11 +52,13 @@ class DataModel {
     let decoder = PropertyListDecoder()
     do {
       lists = try decoder.decode([Checklist].self, from: data)
+      sortChecklists()
     } catch {
       print("Error decoding item array: \(error)")
     }
   }
 
+  // MARK: User Defaults
   func registerDefaults() {
     let dictionary = [
       "ChecklistIndex": -1,
@@ -73,6 +77,13 @@ class DataModel {
 
       indexOfSelectedChecklist = 0
       userDefaults.set(false, forKey: "FirstTime")
+    }
+  }
+
+  // MARK: Other
+  func sortChecklists() {
+    lists.sort { list1, list2 in
+      return list1.name.localizedCompare(list2.name) == .orderedAscending
     }
   }
 }

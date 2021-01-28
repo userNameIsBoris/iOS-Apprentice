@@ -14,7 +14,6 @@ class AllListsViewController: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
 
     // View setup
     navigationController?.navigationBar.prefersLargeTitles = true
@@ -31,6 +30,24 @@ class AllListsViewController: UITableViewController {
     if index >= 0 && index < dataModel.lists.count  { // If the user was on the main screen, the value is -1
       let checklist = dataModel.lists[index]
       performSegue(withIdentifier: "showChecklist", sender: checklist)
+    }
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tableView.reloadData()
+  }
+
+  // MARK: - Helper Methods
+  func configureDetailTextInCell(_ cell: UITableViewCell, withChecklist checklist: Checklist) {
+    let uncheckedItemsCount = checklist.countUncheckedItems()
+    switch uncheckedItemsCount {
+    case 0 where checklist.items.count == 0:
+      cell.detailTextLabel!.text = "No items"
+    case 0 where checklist.items.count != 0:
+      cell.detailTextLabel!.text = "All done!"
+    default:
+      cell.detailTextLabel!.text = "\(uncheckedItemsCount) remaining"
     }
   }
 
@@ -63,11 +80,21 @@ class AllListsViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+    // Get cell
+    let cell: UITableViewCell!
+    if let tempCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
+      cell = tempCell
+    } else {
+      cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+    }
+
     let checklist = dataModel.lists[indexPath.row]
 
     // Configure cell
+    cell.imageView!.image = UIImage(named: checklist.iconName)
     cell.textLabel!.text = checklist.name
+    configureDetailTextInCell(cell, withChecklist: checklist)
+    cell.detailTextLabel!.textColor = UIColor.lightGray
     cell.accessoryType = .detailDisclosureButton
 
     return cell
@@ -103,21 +130,17 @@ extension AllListsViewController: ListDetailViewControllerDelegate {
   }
 
   func ListDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist) {
-    let newIndex = dataModel.lists.count
     dataModel.lists.append(checklist)
-    let indexPath = IndexPath(row: newIndex, section: 0)
-    tableView.insertRows(at: [indexPath], with: .automatic)
+    dataModel.sortChecklists()
+    tableView.reloadData()
 
     navigationController?.popViewController(animated: true)
   }
 
   func ListDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
-    if let index = dataModel.lists.firstIndex(of: checklist) {
-      let indexPath = IndexPath(row: index, section: 0)
-      if let cell = tableView.cellForRow(at: indexPath) {
-        cell.textLabel!.text = checklist.name
-      }
-    }
+    dataModel.sortChecklists()
+    tableView.reloadData()
+
     navigationController?.popViewController(animated: true)
   }
 }

@@ -72,6 +72,45 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="C50-hO-5lW">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="44" id="tFY-4B-Fhq">
+                                        <rect key="frame" x="16" y="98" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tFY-4B-Fhq" id="d4d-rT-4fQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="316" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jrp-MO-S6I">
+                                                    <rect key="frame" x="271.5" y="4" width="36.5" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36" id="XHc-Hq-4lj"/>
+                                                        <constraint firstAttribute="width" constant="36.5" id="zOB-s6-78z"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46J-xD-6Em">
+                                                    <rect key="frame" x="16" y="11" width="32.5" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="46J-xD-6Em" firstAttribute="top" secondItem="d4d-rT-4fQ" secondAttribute="topMargin" id="8Hi-qA-hEZ"/>
+                                                <constraint firstItem="jrp-MO-S6I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="46J-xD-6Em" secondAttribute="trailing" constant="50" id="8YN-It-fwx"/>
+                                                <constraint firstAttribute="bottom" secondItem="jrp-MO-S6I" secondAttribute="bottom" constant="4" id="Feg-yW-5sR"/>
+                                                <constraint firstAttribute="trailing" secondItem="jrp-MO-S6I" secondAttribute="trailing" constant="8" id="UDD-L7-JEn"/>
+                                                <constraint firstItem="46J-xD-6Em" firstAttribute="leading" secondItem="d4d-rT-4fQ" secondAttribute="leadingMargin" id="WiU-el-ce2"/>
+                                                <constraint firstItem="46J-xD-6Em" firstAttribute="bottom" secondItem="d4d-rT-4fQ" secondAttribute="bottomMargin" id="YsL-QL-9de"/>
+                                                <constraint firstItem="jrp-MO-S6I" firstAttribute="top" secondItem="d4d-rT-4fQ" secondAttribute="top" constant="4" id="o25-Dt-dXU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="0Wf-Ka-gDQ" kind="show" identifier="pickIcon" id="yGb-zj-yWS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="61y-FD-FW0" id="gTU-v2-s7g"/>
@@ -91,6 +130,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="iconImage" destination="jrp-MO-S6I" id="RGg-ab-T37"/>
                         <outlet property="saveBarButton" destination="Bkk-45-ZeI" id="rg8-yr-H9O"/>
                         <outlet property="textField" destination="6bJ-E8-YmN" id="Lu1-gb-8Eq"/>
                     </connections>
@@ -124,7 +164,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="√" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBb-sX-dm4">
                                             <rect key="frame" x="16" y="9" width="12" height="26"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" red="0.015686274509803921" green="0.62352941176470589" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -220,6 +260,44 @@
             </objects>
             <point key="canvasLocation" x="1284" y="-39.130434782608695"/>
         </scene>
+        <!--Icon Picker View Controller-->
+        <scene sceneID="Vg2-ar-nJD">
+            <objects>
+                <tableViewController id="0Wf-Ka-gDQ" customClass="IconPickerViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kf2-J9-J6C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="IconCell" textLabel="sT5-Sq-YaY" style="IBUITableViewCellStyleDefault" id="KUt-aS-nAG">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KUt-aS-nAG" id="BZv-fa-3m8">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sT5-Sq-YaY">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0Wf-Ka-gDQ" id="p73-0S-O4v"/>
+                            <outlet property="delegate" destination="0Wf-Ka-gDQ" id="E6V-im-yR0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="AWl-7n-z2r"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Vc-rf-2Xw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1284" y="740"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="HDA-fK-AnP">
             <objects>
@@ -243,6 +321,7 @@
         <segue reference="CD7-Zs-PnN"/>
         <segue reference="T32-zl-N7L"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.015686274510000001" green="0.62352941179999999" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

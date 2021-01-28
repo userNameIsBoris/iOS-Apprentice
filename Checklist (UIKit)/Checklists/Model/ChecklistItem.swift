@@ -10,11 +10,12 @@ import Foundation
 class ChecklistItem: Equatable, Codable {
   var id: UUID
   var name: String
-  var isChecked = false
+  var isChecked: Bool
 
-  init(name: String) {
+  init(name: String, isChecked: Bool = false) {
     self.id = UUID()
     self.name = name
+    self.isChecked = isChecked
   }
 
   // Equatable 
