@@ -20,7 +20,6 @@ class Checklist: Equatable, Codable {
   }
 
   // MARK: Methods
-
   func countUncheckedItems() -> Int {
     var count = 0
     for item in items where !item.isChecked {

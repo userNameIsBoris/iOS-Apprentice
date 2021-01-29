@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 protocol ItemDetailViewControllerDelegate: class {
   func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
@@ -16,6 +17,8 @@ protocol ItemDetailViewControllerDelegate: class {
 class ItemDetailViewController: UITableViewController {
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var saveBarButton: UIBarButtonItem!
+  @IBOutlet weak var shouldRemidSwitch: UISwitch!
+  @IBOutlet weak var datePicker: UIDatePicker!
 
   weak var delegate: ItemDetailViewControllerDelegate?
   var itemToEdit: ChecklistItem?
@@ -29,6 +32,8 @@ class ItemDetailViewController: UITableViewController {
     if let item = itemToEdit {
       textField.text = item.name
       title = "Edit item"
+      shouldRemidSwitch.isOn = item.shouldRemind
+      datePicker.date = item.dueDate
       saveBarButton.isEnabled = true
     }
   }
@@ -42,13 +47,26 @@ class ItemDetailViewController: UITableViewController {
   @IBAction func save() {
     if let item = itemToEdit {
       item.name = textField.text!
+      item.shouldRemind = shouldRemidSwitch.isOn
+      item.dueDate = datePicker.date
+      item.scheduleNotification()
       delegate?.itemDetailViewController(self, didFinishEditing: item)
     } else {
-      let item = ChecklistItem(name: textField.text!)
+      let item = ChecklistItem(name: textField.text!, shouldRemind: shouldRemidSwitch.isOn, dueDate: datePicker.date)
+      item.scheduleNotification()
       delegate?.itemDetailViewController(self, didFinishAdding: item)
     }
   }
 
+  @IBAction func shouldRemidToggled(_ sender: UISwitch) {
+    textField.resignFirstResponder()
+
+    if sender.isOn {
+      let center = UNUserNotificationCenter.current()
+      center.requestAuthorization(options: [.alert, .sound]) { _,_  in }
+    }
+  }
+  
   @IBAction func cancel(_ sender: UIBarButtonItem) {
     delegate?.itemDetailViewControllerDidCancel(self)
   }
