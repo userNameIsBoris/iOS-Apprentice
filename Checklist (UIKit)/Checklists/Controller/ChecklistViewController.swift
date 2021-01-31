@@ -40,9 +40,11 @@ class ChecklistViewController: UITableViewController {
   }
 
   // MARK: - Cell Configure Methods
-  func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
+  func configureTextAndDate(for cell: UITableViewCell, with item: ChecklistItem) {
     guard let textLabel = cell.viewWithTag(1000) as? UILabel else { return }
+    guard let dueDateLabel = cell.viewWithTag(1002) as? UILabel else { return }
     textLabel.text = item.name
+    dueDateLabel.text = item.dueDateString
   }
 
   func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
@@ -60,7 +62,7 @@ class ChecklistViewController: UITableViewController {
     let item = checklist.items[indexPath.row]
 
     // Configure cell
-    configureText(for: cell, with: item)
+    configureTextAndDate(for: cell, with: item)
     configureCheckmark(for: cell, with: item)
 
     return cell
@@ -91,22 +93,17 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
   }
 
   func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
-    let newIndex = checklist.items.count
     checklist.items.append(item)
-    let indexPath = IndexPath(row: newIndex, section: 0)
-    let indexPaths = [indexPath]
-    tableView.insertRows(at: indexPaths, with: .automatic)
+    checklist.sortChecklistItems()
+    tableView.reloadData()
 
     navigationController?.popViewController(animated: true)
   }
 
   func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
-    if let index = checklist.items.firstIndex(of: item) {
-      let indexPath = IndexPath(row: index, section: 0)
-      if let cell = tableView.cellForRow(at: indexPath) {
-        configureText(for: cell, with: item)
-      }
-    }
+    checklist.sortChecklistItems()
+    tableView.reloadData()
+
     navigationController?.popViewController(animated: true)
   }
 }

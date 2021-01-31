@@ -28,6 +28,13 @@ class Checklist: Equatable, Codable {
     return count
   }
 
+  // Sort
+  func sortChecklistItems() {
+    items.sort { item1, item2 in
+      return item1.dueDate.compare(item2.dueDate) == .orderedAscending
+    }
+  }
+
   // Equatable
   static func == (lhs: Checklist, rhs: Checklist) -> Bool {
     return lhs.id == rhs.id

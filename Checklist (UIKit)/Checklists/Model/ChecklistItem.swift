@@ -8,12 +8,22 @@
 import Foundation
 import UserNotifications
 
+let dateFormatter: DateFormatter = {
+  let dateFormatter = DateFormatter()
+  dateFormatter.dateStyle = .short
+  return dateFormatter
+}()
+
 class ChecklistItem: Equatable, Codable {
   var id: UUID
   var name: String
   var isChecked: Bool
   var shouldRemind: Bool
   var dueDate: Date
+  var dueDateString: String {
+    dateFormatter.string(from: dueDate)
+  }
+  
 
   init(name: String, isChecked: Bool = false, shouldRemind: Bool = false, dueDate: Date = Date()) {
     self.id = UUID()
