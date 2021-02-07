@@ -41,8 +41,8 @@
                                     <action selector="getLocation" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZMx-aa-2a0"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Address goes here)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65D-f2-0pX">
-                                <rect key="frame" x="16" y="187" width="155" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Address goes here)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65D-f2-0pX">
+                                <rect key="frame" x="16" y="187" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSo-cm-YTP">
-                                <rect key="frame" x="143.5" y="272" width="88" height="30"/>
+                                <rect key="frame" x="143.5" y="271.5" width="88" height="30"/>
                                 <state key="normal" title="Tag Location"/>
                             </button>
                         </subviews>
@@ -74,14 +74,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Sdv-NU-ILu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="1Z0-qC-2oM"/>
-                            <constraint firstItem="tSo-cm-YTP" firstAttribute="top" secondItem="65D-f2-0pX" secondAttribute="bottom" constant="64" id="2re-oc-OcB"/>
+                            <constraint firstItem="tSo-cm-YTP" firstAttribute="top" secondItem="9C0-8L-m5T" secondAttribute="bottom" constant="108.5" id="2re-oc-OcB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="65D-f2-0pX" secondAttribute="trailing" constant="16" id="52d-Uk-Sf5"/>
                             <constraint firstItem="9C0-8L-m5T" firstAttribute="width" secondItem="GK1-qq-wIo" secondAttribute="width" multiplier="1.20896" id="7hA-8n-TkO"/>
                             <constraint firstItem="9C0-8L-m5T" firstAttribute="top" secondItem="GK1-qq-wIo" secondAttribute="bottom" constant="16" id="91x-gf-lCO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wFj-ZM-Wm4" secondAttribute="trailing" constant="16" id="ACu-WW-jiy"/>
                             <constraint firstItem="wFj-ZM-Wm4" firstAttribute="leading" secondItem="9C0-8L-m5T" secondAttribute="trailing" constant="8" symbolic="YES" id="CTu-pn-LSE"/>
                             <constraint firstItem="GK1-qq-wIo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="105" id="Drj-31-Nc6"/>
                             <constraint firstItem="GK1-qq-wIo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Hcz-sb-UZI"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="65D-f2-0pX" secondAttribute="trailing" constant="204" id="JwG-fB-wku"/>
                             <constraint firstItem="DlB-DE-dXJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="105" id="MIR-Eb-qx4"/>
                             <constraint firstItem="65D-f2-0pX" firstAttribute="top" secondItem="9C0-8L-m5T" secondAttribute="bottom" constant="24" id="Smx-ew-SsC"/>
                             <constraint firstItem="QNN-bw-HpJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UcD-Fr-ZBY"/>
@@ -115,6 +115,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="D5y-of-Y6y" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="13z-Oi-jGe">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
