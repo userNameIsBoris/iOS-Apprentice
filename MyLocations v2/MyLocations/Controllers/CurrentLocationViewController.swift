@@ -15,7 +15,7 @@ class CurrentLocationViewController: UIViewController {
   // Location
   let locationManager = CLLocationManager()
   var location: CLLocation?
-  var isUpdatingLocation = false
+  var updatingLocation = false
   var lastLocationError: Error?
 
   // Reverse geocoding
@@ -24,12 +24,23 @@ class CurrentLocationViewController: UIViewController {
   var performingReverseGeocoding = false
   var lastGeocodingError: Error?
 
+  // Other
   var timer: Timer?
 
   // MARK: - View
   override func viewDidLoad() {
     super.viewDidLoad()
     updateLabels()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.isNavigationBarHidden = true
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    navigationController?.isNavigationBarHidden = false
   }
 
   // MARK: - Outlets
@@ -56,7 +67,7 @@ class CurrentLocationViewController: UIViewController {
       return
     }
 
-    if isUpdatingLocation {
+    if updatingLocation {
       stopLocationManager()
     } else {
       location = nil
@@ -68,13 +79,22 @@ class CurrentLocationViewController: UIViewController {
     updateLabels()
   }
 
+  // MARK: - Navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "TagLocation" {
+      let controller = segue.destination as! LocationDetailsViewController
+      controller.coordinate = location!.coordinate
+      controller.placemark = placemark
+    }
+  }
+
   // MARK: - Helper Methods
   func startLocationManager() {
     if CLLocationManager.locationServicesEnabled() {
       locationManager.delegate = self
       locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
       locationManager.startUpdatingLocation()
-      isUpdatingLocation = true
+      updatingLocation = true
 
       timer = Timer.scheduledTimer(
         timeInterval: 60,
@@ -84,15 +104,14 @@ class CurrentLocationViewController: UIViewController {
         repeats: false)
     }
   }
+
   func stopLocationManager() {
-    if isUpdatingLocation {
+    if updatingLocation {
       locationManager.stopUpdatingLocation()
       locationManager.delegate = nil
-      isUpdatingLocation = false
+      updatingLocation = false
 
-      if let timer = timer {
-        timer.invalidate()
-      }
+      timer?.invalidate()
     }
   }
 
@@ -100,7 +119,7 @@ class CurrentLocationViewController: UIViewController {
     print("*** Timeout")
     if location == nil {
       stopLocationManager()
-      lastLocationError = NSError(domain: "MyErrorDomain", code: 1, userInfo: nil)
+      lastLocationError = NSError(domain: "MyErrorDomain", code: 1)
       updateLabels()
     }
   }
@@ -120,7 +139,7 @@ class CurrentLocationViewController: UIViewController {
       messageLabel.text = ""
       tagButton.isHidden = false
 
-      // Update addressLabel
+      // Configure addressLabel
       if let placemark = placemark {
         addressLabel.text = string(from: placemark)
       } else if performingReverseGeocoding {
@@ -148,18 +167,18 @@ class CurrentLocationViewController: UIViewController {
         }
       } else if !CLLocationManager.locationServicesEnabled() {
         statusMessage = "Location Services Disabled"
-      } else if isUpdatingLocation {
+      } else if updatingLocation {
         statusMessage = "Searching..."
       } else {
         statusMessage = "Tap 'Get My Location' to Start"
       }
       messageLabel.text = statusMessage
     }
-  configureGetButton()
+    configureGetButton()
   }
 
   func configureGetButton() {
-    getButton.setTitle(isUpdatingLocation ? "Stop" : "Get My Location", for: .normal)
+    getButton.setTitle(updatingLocation ? "Stop" : "Get My Location", for: .normal)
   }
 
   func string(from placemark: CLPlacemark) -> String {
@@ -232,7 +251,7 @@ extension CurrentLocationViewController: CLLocationManagerDelegate {
 
       // Reverse geocoding
       if !performingReverseGeocoding {
-        print("Starting reverse geocoding")
+        print("Starting reverse geocode")
         performingReverseGeocoding = true
 
         geocoder.reverseGeocodeLocation(newLocation) { placemarks, error in
