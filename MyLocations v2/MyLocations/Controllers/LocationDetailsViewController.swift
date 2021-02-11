@@ -32,7 +32,16 @@ class LocationDetailsViewController: UITableViewController {
 
   // MARK: - Actions
   @IBAction func done(_ sender: UIBarButtonItem) {
-    navigationController?.popViewController(animated: true)
+    guard let mainView = navigationController?.parent?.view else { return }
+    let hudView = HudView.hud(inView: mainView, animated: true)
+    hudView.text = "Tagged"
+
+    afterDelay(0.6) {
+      hudView.hide(animated: true)
+    }
+    afterDelay(0.9) {
+      self.navigationController?.popViewController(animated: true)
+    }
   }
 
   @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -60,6 +69,11 @@ class LocationDetailsViewController: UITableViewController {
       addressLabel.text = "No Address Found"
     }
     dateLabel.text = dateFormat(date: Date())
+
+    // Hide keyboard
+    let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+    gestureRecognizer.cancelsTouchesInView = false
+    tableView.addGestureRecognizer(gestureRecognizer)
   }
 
   // MARK: - Navigation
@@ -96,5 +110,26 @@ class LocationDetailsViewController: UITableViewController {
 
   func dateFormat(date: Date) -> String {
     dateFormatter.string(from: date)
+  }
+
+  @objc func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
+    let point = gestureRecognizer.location(in: tableView)
+    let indexPath = tableView.indexPathForRow(at: point)
+
+    if indexPath != nil && indexPath!.section == 0 && indexPath!.row == 0  {
+      return
+    }
+    descriptionTextView.resignFirstResponder()
+  }
+
+  // MARK: - Table View Delegates
+  override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    return indexPath.section == 0 || indexPath.section == 1 ? indexPath : nil
+  }
+
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if indexPath.section == 0 && indexPath.row == 0 {
+      descriptionTextView.becomeFirstResponder()
+    }
   }
 }
