@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 private let dateFormatter: DateFormatter = {
   let formatter = DateFormatter()
@@ -21,6 +22,9 @@ class LocationDetailsViewController: UITableViewController {
   var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
   var placemark: CLPlacemark?
   var categoryName = "No Category"
+  var date = Date()
+  
+  var managedObjectContext: NSManagedObjectContext!
 
   // MARK: - Outlets
   @IBOutlet weak var descriptionTextView: UITextView!
@@ -33,14 +37,33 @@ class LocationDetailsViewController: UITableViewController {
   // MARK: - Actions
   @IBAction func done(_ sender: UIBarButtonItem) {
     guard let mainView = navigationController?.parent?.view else { return }
+
+    // Show HUD
     let hudView = HudView.hud(inView: mainView, animated: true)
     hudView.text = "Tagged"
 
-    afterDelay(0.6) {
-      hudView.hide(animated: true)
-    }
-    afterDelay(0.9) {
-      self.navigationController?.popViewController(animated: true)
+    // Create a new location instance and set properties
+    let location = Location(context: managedObjectContext)
+
+    location.latitude = coordinate.latitude
+    location.longitude = coordinate.longitude
+    location.date = date
+    location.category = categoryName
+    location.placemark = placemark
+    location.locationDescription = descriptionTextView.text
+
+    do {
+      try managedObjectContext.save()
+
+      // Hide HUD and pop VC
+      afterDelay(0.6) {
+        hudView.hide(animated: true)
+        afterDelay(0.3) {
+          self.navigationController?.popViewController(animated: true)
+        }
+      }
+    } catch {
+      fatalCoreDataError(error)
     }
   }
 
@@ -68,7 +91,7 @@ class LocationDetailsViewController: UITableViewController {
     } else {
       addressLabel.text = "No Address Found"
     }
-    dateLabel.text = dateFormat(date: Date())
+    dateLabel.text = dateFormat(date: date)
 
     // Hide keyboard
     let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
