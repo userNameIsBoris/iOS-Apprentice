@@ -388,17 +388,18 @@
                     </tabBar>
                     <connections>
                         <segue destination="vZA-oM-vy2" kind="relationship" relationship="viewControllers" id="ohC-sZ-q6l"/>
+                        <segue destination="yS2-9o-e59" kind="relationship" relationship="viewControllers" id="wj0-r9-PrG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fdh-Zt-PRo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="130.40000000000001" y="116.49175412293854"/>
         </scene>
-        <!--Item-->
+        <!--Tag-->
         <scene sceneID="PoB-Zo-1Fa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vZA-oM-vy2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="nUF-W5-HVE"/>
+                    <tabBarItem key="tabBarItem" title="Tag" id="nUF-W5-HVE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tJz-r0-BRb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -413,7 +414,82 @@
             </objects>
             <point key="canvasLocation" x="1071.2" y="116.49175412293854"/>
         </scene>
+        <!--Locations-->
+        <scene sceneID="c6g-Wj-9zS">
+            <objects>
+                <tableViewController id="Q3b-0t-jdg" customClass="LocationsViewController" customModule="MyLocations" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3a9-Ps-hxG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" rowHeight="65" id="94K-f6-il4" customClass="LocationCell" customModule="MyLocations" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="94K-f6-il4" id="jYJ-fY-ZfM">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b8v-aU-KPe">
+                                            <rect key="frame" x="16" y="11" width="88" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckv-PL-7RV">
+                                            <rect key="frame" x="16" y="37" width="53" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ckv-PL-7RV" firstAttribute="top" secondItem="b8v-aU-KPe" secondAttribute="bottom" constant="5" id="MHx-bb-as3"/>
+                                        <constraint firstItem="ckv-PL-7RV" firstAttribute="bottom" secondItem="jYJ-fY-ZfM" secondAttribute="bottomMargin" id="Phc-Ln-at9"/>
+                                        <constraint firstItem="ckv-PL-7RV" firstAttribute="leading" secondItem="jYJ-fY-ZfM" secondAttribute="leadingMargin" id="mM2-XJ-Esw"/>
+                                        <constraint firstItem="b8v-aU-KPe" firstAttribute="top" secondItem="jYJ-fY-ZfM" secondAttribute="topMargin" id="qI8-tN-ABl"/>
+                                        <constraint firstItem="b8v-aU-KPe" firstAttribute="leading" secondItem="jYJ-fY-ZfM" secondAttribute="leadingMargin" id="yWc-bb-x6p"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addressLabel" destination="ckv-PL-7RV" id="29V-l4-PaS"/>
+                                    <outlet property="descriptionLabel" destination="b8v-aU-KPe" id="KvJ-kf-5a3"/>
+                                    <segue destination="XaZ-wD-whg" kind="show" identifier="EditLocation" id="lhZ-f7-egk"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Q3b-0t-jdg" id="MQI-XZ-bea"/>
+                            <outlet property="delegate" destination="Q3b-0t-jdg" id="win-NK-jfV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Locations" id="UQO-vu-Tf7"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HLW-8M-pNa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2012" y="888"/>
+        </scene>
+        <!--Locations-->
+        <scene sceneID="iQi-lB-hDc">
+            <objects>
+                <navigationController id="yS2-9o-e59" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Locations" id="PX0-T1-V8T"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xy2-w9-Uw6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Q3b-0t-jdg" kind="relationship" relationship="rootViewController" id="Gsb-yq-Q86"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="27b-NR-c54" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1071" y="884"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lhZ-f7-egk"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
