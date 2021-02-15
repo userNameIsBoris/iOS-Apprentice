@@ -21,6 +21,7 @@
 		A1ED236225CD334B00F05E49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1ED236125CD334B00F05E49 /* Assets.xcassets */; };
 		A1ED236525CD334B00F05E49 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1ED236325CD334B00F05E49 /* LaunchScreen.storyboard */; };
 		A1F60F1925D5503300F9175A /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F60F1825D5503300F9175A /* Functions.swift */; };
+		A1F95CCA25DA980200EDCE2E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F95CC925DA980200EDCE2E /* MapViewController.swift */; };
 		A1FBBDD925D501D300651AE2 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FBBDD825D501D300651AE2 /* HudView.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		A1ED236425CD334B00F05E49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1ED236625CD334B00F05E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1F60F1825D5503300F9175A /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		A1F95CC925DA980200EDCE2E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		A1FBBDD825D501D300651AE2 /* HudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,6 +65,7 @@
 				A128FF1525D173C2005ADD6C /* CategoryPickerViewController.swift */,
 				A181A9BE25D8351500EBE6CB /* LocationsViewController.swift */,
 				A181A9C125D83BED00EBE6CB /* LocationCell.swift */,
+				A1F95CC925DA980200EDCE2E /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				A1F60F1925D5503300F9175A /* Functions.swift in Sources */,
 				A181A9BF25D8351500EBE6CB /* LocationsViewController.swift in Sources */,
 				A108295025D65897003495B7 /* Location+CoreDataProperties.swift in Sources */,
+				A1F95CCA25DA980200EDCE2E /* MapViewController.swift in Sources */,
 				A181A9C225D83BED00EBE6CB /* LocationCell.swift in Sources */,
 				A1ED236025CD334A00F05E49 /* MyLocations.xcdatamodeld in Sources */,
 				A109BBF625D160B300AF6656 /* LocationDetailsViewController.swift in Sources */,
