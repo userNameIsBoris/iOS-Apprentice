@@ -12,7 +12,34 @@ import MapKit
 
 @objc(Location)
 public class Location: NSManagedObject {
+  var hasPhoto: Bool {
+    return photoID != nil
+  }
+  var photoURL: URL {
+    assert(photoID != nil, "No photo ID set")
+    let filename = "Photo-\(photoID!.intValue).jpg"
+    return applicationDocumentsFolder.appendingPathComponent(filename)
+  }
+  var photoImage: UIImage? {
+    return UIImage(contentsOfFile: photoURL.path)
+  }
 
+  class func nextPhotoID() -> Int {
+    let userDefaults = UserDefaults.standard
+    let currentID = userDefaults.integer(forKey: "PhotoID") + 1
+    userDefaults.set(currentID, forKey: "PhotoID")
+    return currentID
+  }
+
+  func removePhotoFIle() {
+    if hasPhoto {
+      do {
+        try FileManager.default.removeItem(at: photoURL)
+      } catch {
+        print("Error removing file: \(error)")
+      }
+    }
+  }
 }
 
 extension Location: MKAnnotation {

@@ -13,6 +13,7 @@
 		A128FF1625D173C2005ADD6C /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A128FF1525D173C2005ADD6C /* CategoryPickerViewController.swift */; };
 		A181A9BF25D8351500EBE6CB /* LocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181A9BE25D8351500EBE6CB /* LocationsViewController.swift */; };
 		A181A9C225D83BED00EBE6CB /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A181A9C125D83BED00EBE6CB /* LocationCell.swift */; };
+		A18854B225E283A0006182D2 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18854B125E283A0006182D2 /* UIImage+Resize.swift */; };
 		A1ED235625CD334A00F05E49 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED235525CD334A00F05E49 /* AppDelegate.swift */; };
 		A1ED235825CD334A00F05E49 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED235725CD334A00F05E49 /* SceneDelegate.swift */; };
 		A1ED235A25CD334A00F05E49 /* CurrentLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED235925CD334A00F05E49 /* CurrentLocationViewController.swift */; };
@@ -32,6 +33,7 @@
 		A128FF1525D173C2005ADD6C /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 		A181A9BE25D8351500EBE6CB /* LocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewController.swift; sourceTree = "<group>"; };
 		A181A9C125D83BED00EBE6CB /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		A18854B125E283A0006182D2 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		A1ED235225CD334A00F05E49 /* MyLocations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLocations.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1ED235525CD334A00F05E49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1ED235725CD334A00F05E49 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +66,6 @@
 				A109BBF525D160B300AF6656 /* LocationDetailsViewController.swift */,
 				A128FF1525D173C2005ADD6C /* CategoryPickerViewController.swift */,
 				A181A9BE25D8351500EBE6CB /* LocationsViewController.swift */,
-				A181A9C125D83BED00EBE6CB /* LocationCell.swift */,
 				A1F95CC925DA980200EDCE2E /* MapViewController.swift */,
 			);
 			path = Controllers;
@@ -73,9 +74,9 @@
 		A109BBF425D1609500AF6656 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A1ED235E25CD334A00F05E49 /* MyLocations.xcdatamodeld */,
 				A108294D25D65897003495B7 /* Location+CoreDataClass.swift */,
 				A108294E25D65897003495B7 /* Location+CoreDataProperties.swift */,
+				A1ED235E25CD334A00F05E49 /* MyLocations.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -102,10 +103,12 @@
 				A1ED235525CD334A00F05E49 /* AppDelegate.swift */,
 				A1ED235725CD334A00F05E49 /* SceneDelegate.swift */,
 				A109BBF225D1608100AF6656 /* Controllers */,
+				A181A9C125D83BED00EBE6CB /* LocationCell.swift */,
 				A109BBF425D1609500AF6656 /* Model */,
 				A1F60F1825D5503300F9175A /* Functions.swift */,
 				A1FBBDD825D501D300651AE2 /* HudView.swift */,
 				A1ED235B25CD334A00F05E49 /* Main.storyboard */,
+				A18854B125E283A0006182D2 /* UIImage+Resize.swift */,
 				A1ED236325CD334B00F05E49 /* LaunchScreen.storyboard */,
 				A1ED236625CD334B00F05E49 /* Info.plist */,
 				A1ED236125CD334B00F05E49 /* Assets.xcassets */,
@@ -190,6 +193,7 @@
 				A181A9BF25D8351500EBE6CB /* LocationsViewController.swift in Sources */,
 				A108295025D65897003495B7 /* Location+CoreDataProperties.swift in Sources */,
 				A1F95CCA25DA980200EDCE2E /* MapViewController.swift in Sources */,
+				A18854B225E283A0006182D2 /* UIImage+Resize.swift in Sources */,
 				A181A9C225D83BED00EBE6CB /* LocationCell.swift in Sources */,
 				A1ED236025CD334A00F05E49 /* MyLocations.xcdatamodeld in Sources */,
 				A109BBF625D160B300AF6656 /* LocationDetailsViewController.swift in Sources */,

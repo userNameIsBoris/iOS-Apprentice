@@ -51,7 +51,7 @@ class MapViewController: UIViewController {
       let controller = segue.destination as! LocationDetailsViewController
       let button = sender as! UIButton
       let location = locations[button.tag]
-      
+
       controller.locationToEdit = location
       controller.managedObjectContext = managedObjectContext
     }
