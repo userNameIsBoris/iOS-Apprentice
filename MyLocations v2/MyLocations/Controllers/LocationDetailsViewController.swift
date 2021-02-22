@@ -170,24 +170,13 @@ class LocationDetailsViewController: UITableViewController {
   // MARK: - Helper Methods
   func string(from placemark: CLPlacemark) -> String {
     var text = ""
-    if let tmp = placemark.subThoroughfare {
-      text += tmp + " "
-    }
-    if let tmp = placemark.thoroughfare {
-      text += tmp + ", "
-    }
-    if let tmp = placemark.locality {
-      text += tmp + ", "
-    }
-    if let tmp = placemark.administrativeArea {
-      text += tmp + " "
-    }
-    if let tmp = placemark.postalCode {
-      text += tmp + ", "
-    }
-    if let tmp = placemark.country {
-      text += tmp
-    }
+    text.add(text: placemark.subThoroughfare)
+    text.add(text: placemark.thoroughfare, separatedBy: " ")
+    text.add(text: placemark.locality, separatedBy: ", ")
+    text.add(text: placemark.administrativeArea, separatedBy: ", ")
+    text.add(text: placemark.postalCode, separatedBy: " ")
+    text.add(text: placemark.country, separatedBy: ", ")
+
     return text
   }
 
@@ -261,6 +250,7 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
     alert.addAction(cameraAction)
     alert.addAction(libraryAction)
     alert.addAction(cancelAction)
+    alert.view.tintColor = view.tintColor
 
     present(alert, animated: true)
   }
@@ -270,6 +260,7 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
     imagePicker.sourceType = .camera
     imagePicker.delegate = self
     imagePicker.allowsEditing = true
+    imagePicker.view.tintColor = view.tintColor
 
     present(imagePicker, animated: true)
   }
@@ -279,6 +270,7 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
     imagePicker.sourceType = .photoLibrary
     imagePicker.delegate = self
     imagePicker.allowsEditing = true
+    imagePicker.view.tintColor = view.tintColor
 
     present(imagePicker, animated: true)
   }

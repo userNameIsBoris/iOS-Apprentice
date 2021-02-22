@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     print(applicationDocumentsFolder)
+    customizeAppearence()
     return true
   }
 
@@ -30,4 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
   }
 
+  // MARK: - Helper Methods
+  func customizeAppearence() {
+    let tintColor = UIColor(
+      red: 255 / 255,
+      green: 238 / 255,
+      blue: 136 / 255,
+      alpha: 1)
+    UITabBar.appearance().tintColor = tintColor
+  }
 }

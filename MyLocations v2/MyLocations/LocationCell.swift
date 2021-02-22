@@ -13,22 +13,24 @@ class LocationCell: UITableViewCell {
   @IBOutlet weak var addressLabel: UILabel!
   @IBOutlet weak var photoImageView: UIImageView!
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+
+    photoImageView.layer.cornerRadius = photoImageView.bounds.size.width / 2
+    photoImageView.clipsToBounds = true
+    separatorInset = UIEdgeInsets(top: 0, left: 82, bottom: 0, right: 0)
+  }
+
   // MARK: - Helper Methods
   func configure(for location: Location) {
     descriptionLabel.text = location.locationDescription.isEmpty ? "(No description)" : location.locationDescription
 
     if let placemark = location.placemark {
       var text = ""
+      text.add(text: placemark.subThoroughfare)
+      text.add(text: placemark.thoroughfare, separatedBy: " ")
+      text.add(text: placemark.locality, separatedBy: ", ")
 
-      if let subThoroughfare = placemark.subThoroughfare {
-        text += subThoroughfare + " "
-      }
-      if let thoroughfare = placemark.thoroughfare {
-        text += thoroughfare + ", "
-      }
-      if let locality = placemark.locality {
-        text += locality
-      }
       addressLabel.text = text
     } else {
       addressLabel.text = String(format: "Lat: %.8f, Long: %.8f", location.latitude, location.longitude)
@@ -40,6 +42,6 @@ class LocationCell: UITableViewCell {
     if location.hasPhoto, let image = location.photoImage {
       return image.resized(withBounds: CGSize(width: 52, height: 52))
     }
-    return UIImage()
+    return UIImage(named: "No Photo")!
   }
 }
