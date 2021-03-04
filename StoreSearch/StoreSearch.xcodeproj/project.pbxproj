@@ -16,6 +16,7 @@
 		A137296825ED06160086D698 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137296725ED06160086D698 /* SearchResult.swift */; };
 		A1A4145625EE8C2C00B8EBD5 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1A4145525EE8C2C00B8EBD5 /* SearchResultCell.xib */; };
 		A1A4145A25EE95A300B8EBD5 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A4145925EE95A300B8EBD5 /* SearchResultCell.swift */; };
+		A1CF696225F136D600C28321 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CF696125F136D600C28321 /* LoadingCell.xib */; };
 		A1E4524E25EEA7F7005F228E /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E4524D25EEA7F7005F228E /* NothingFoundCell.xib */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		A137296725ED06160086D698 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		A1A4145525EE8C2C00B8EBD5 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		A1A4145925EE95A300B8EBD5 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		A1CF696125F136D600C28321 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		A1E4524D25EEA7F7005F228E /* NothingFoundCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +85,7 @@
 				A1A4145925EE95A300B8EBD5 /* SearchResultCell.swift */,
 				A1A4145525EE8C2C00B8EBD5 /* SearchResultCell.xib */,
 				A1E4524D25EEA7F7005F228E /* NothingFoundCell.xib */,
+				A1CF696125F136D600C28321 /* LoadingCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 			files = (
 				A137295D25ECE7C50086D698 /* LaunchScreen.storyboard in Resources */,
 				A137295A25ECE7C50086D698 /* Assets.xcassets in Resources */,
+				A1CF696225F136D600C28321 /* LoadingCell.xib in Resources */,
 				A1A4145625EE8C2C00B8EBD5 /* SearchResultCell.xib in Resources */,
 				A1E4524E25EEA7F7005F228E /* NothingFoundCell.xib in Resources */,
 				A137295825ECE7C40086D698 /* Main.storyboard in Resources */,

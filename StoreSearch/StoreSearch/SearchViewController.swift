@@ -13,29 +13,36 @@ class SearchViewController: UIViewController {
 
   var searchResults: [SearchResult] = []
   var hasSearched = false
+  var isLoading = false
 
   struct TableView {
     struct CellIdentifiers {
       static let searchResultCell = "SearchResultCell"
       static let nothingFoundCell = "NothingFoundCell"
+      static let loadingCell = "LoadingCell"
     }
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    searchBar.becomeFirstResponder()
-    tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
     var cellNib = UINib(nibName: TableView.CellIdentifiers.searchResultCell, bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.searchResultCell)
     cellNib = UINib(nibName: TableView.CellIdentifiers.nothingFoundCell, bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.nothingFoundCell)
+    cellNib = UINib(nibName: TableView.CellIdentifiers.loadingCell, bundle: nil)
+    tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.loadingCell)
+
+    searchBar.becomeFirstResponder()
+    tableView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+    tableView.rowHeight = 80
+    tableView.tableFooterView = UIView()
   }
 
   // MARK: - Helper Methods
   func iTunesURL(searchText: String) -> URL {
     let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-    let stringUrl = String(format: "https://itunes.apple.com/search?term=%@", encodedText)
+    let stringUrl = String(format: "https://itunes.apple.com/search?term=%@&limit=200", encodedText)
     let url = URL(string: stringUrl)
     return url!
   }
@@ -74,16 +81,25 @@ extension SearchViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     if !searchBar.text!.isEmpty {
       searchBar.resignFirstResponder()
+      isLoading = true
+      tableView.reloadData()
       hasSearched = true
+
       searchResults = []
 
+      let queue = DispatchQueue.global()
       let url = iTunesURL(searchText: searchBar.text!)
-      print("URL: \(url)")
-      if let data = performStoreRequest(with: url) {
-        searchResults = parse(data: data)
-        searchResults.sort { $0 < $1 }
+      queue.async {
+        if let data = self.performStoreRequest(with: url) {
+          self.searchResults = self.parse(data: data)
+          self.searchResults.sort { $0 < $1 }
+          DispatchQueue.main.async {
+            self.isLoading = false
+            self.tableView.reloadData()
+          }
+          return
+        }
       }
-      tableView.reloadData()
     }
   }
 
@@ -95,7 +111,9 @@ extension SearchViewController: UISearchBarDelegate {
 // MARK: - Table View Delegate Extension
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if !hasSearched {
+    if isLoading {
+      return 1
+    } else if !hasSearched {
       return 0
     } else if searchResults.isEmpty {
       return 1
@@ -105,20 +123,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if searchResults.isEmpty {
+    if isLoading {
+      let cell = tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.loadingCell, for: indexPath)
+      let spinner = cell.viewWithTag(100) as! UIActivityIndicatorView
+      spinner.startAnimating()
+      return cell
+    } else if searchResults.isEmpty {
       return tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.nothingFoundCell, for: indexPath)
     } else {
       let cell = tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
       let searchResult = searchResults[indexPath.row]
       cell.nameLabel.text = searchResult.name
       cell.artistNameLabel.text = searchResult.artist.isEmpty ? "Unknown" : String(format: "%@ (%@)", searchResult.artist, searchResult.type)
-
       return cell
     }
   }
 
   func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-    return searchResults.isEmpty ? nil : indexPath
+    return searchResults.isEmpty || isLoading ? nil : indexPath
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
