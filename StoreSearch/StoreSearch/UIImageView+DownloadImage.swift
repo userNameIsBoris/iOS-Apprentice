@@ -15,7 +15,7 @@ extension UIImageView {
       if error == nil, let url = url, let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
         DispatchQueue.main.async {
           if let weakSelf = self {
-            weakSelf.image = image.withCornerRadius(10)
+            weakSelf.image = image
           }
         }
       }

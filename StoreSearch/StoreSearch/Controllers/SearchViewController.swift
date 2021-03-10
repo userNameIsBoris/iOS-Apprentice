@@ -46,6 +46,16 @@ class SearchViewController: UIViewController {
     performSearch()
   }
 
+  // MARK: - Navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "ShowDetail" {
+      let indexPath = sender as! IndexPath
+      let controller = segue.destination as! DetailViewController
+
+      controller.searchResult = searchResults[indexPath.row]
+    }
+  }
+
   // MARK: - Helper Methods
   func iTunesURL(searchText: String, category: Int) -> URL {
     let kind: String
@@ -172,5 +182,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+
+    performSegue(withIdentifier: "ShowDetail", sender: indexPath)
   }
 }
