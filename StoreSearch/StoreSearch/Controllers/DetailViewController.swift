@@ -20,6 +20,11 @@ class DetailViewController: UIViewController {
   var searchResult: SearchResult!
   var downloadTask: URLSessionDownloadTask?
 
+  required init?(coder aCoder: NSCoder) {
+    super.init(coder: aCoder)
+    transitioningDelegate = self
+  }
+
   deinit {
     downloadTask?.cancel()
   }
@@ -81,9 +86,20 @@ class DetailViewController: UIViewController {
 
 }
 
-// MARK: - UIGestureRecognizer Delegate Extension
+// MARK: - Gesture Recognizer Delegate Extension
 extension DetailViewController: UIGestureRecognizerDelegate {
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
     return touch.view === mainView
+  }
+}
+
+// MARK: - View Controller Transition Delegate Extension
+extension DetailViewController: UIViewControllerTransitioningDelegate {
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return BounceAnimationController()
+  }
+
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return SlideOutAnimationController()
   }
 }
