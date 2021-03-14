@@ -96,10 +96,10 @@ extension DetailViewController: UIGestureRecognizerDelegate {
 // MARK: - View Controller Transition Delegate Extension
 extension DetailViewController: UIViewControllerTransitioningDelegate {
   func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return BounceAnimationController()
+    return FadeInAnimationController()
   }
 
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return SlideOutAnimationController()
+    return FadeOutAnimationController()
   }
 }
