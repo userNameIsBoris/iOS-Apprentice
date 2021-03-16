@@ -11,7 +11,8 @@ class LandscapeViewController: UIViewController {
   @IBOutlet weak var scrollView: UIScrollView!
   @IBOutlet weak var pageControl: UIPageControl!
 
-  var searchResults = [SearchResult]()
+  var search: Search!
+  
   private var firstTime = true
   private var downloads = [URLSessionDownloadTask]()
 
@@ -20,6 +21,7 @@ class LandscapeViewController: UIViewController {
       task.cancel()
     }
   }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -37,11 +39,6 @@ class LandscapeViewController: UIViewController {
 
     view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
     pageControl.numberOfPages = 0
-
-    if firstTime {
-      firstTime = false
-      tileButtons(searchResults)
-    }
   }
 
   override func viewWillLayoutSubviews() {
@@ -54,6 +51,20 @@ class LandscapeViewController: UIViewController {
       y: safeFrame.size.height - pageControl.frame.size.height,
       width: safeFrame.size.width,
       height: pageControl.frame.size.height)
+
+    if firstTime {
+      firstTime = false
+      switch search.state {
+      case .notSearchedYet:
+        break
+      case .noResults:
+        showNothingFoundLabel()
+      case .loading:
+        showSpinner()
+      case .results(let array):
+        tileButtons(array)
+      }
+    }
   }
 
   // MARK: - Actions
@@ -64,7 +75,35 @@ class LandscapeViewController: UIViewController {
         y: 0)
     }
   }
-  
+
+  // MARK: - Navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "ShowDetail", case .results(let array) = search.state {
+      let controller = segue.destination as! DetailViewController
+      let button = sender as! UIButton
+      let searchResult = array[button.tag - 2000]
+      controller.searchResult = searchResult
+    }
+  }
+
+  // MARK: - Helper Methods
+  func searchResultsReceived() {
+    hideSpinner()
+
+    switch search.state {
+    case .notSearchedYet, .loading:
+      break
+    case .noResults:
+      showNothingFoundLabel()
+    case .results(let array):
+      tileButtons(array)
+    }
+  }
+
+  @objc func buttonPressed(_ sender: UIButton) {
+    performSegue(withIdentifier: "ShowDetail", sender: sender)
+  }
+
   // MARK: - Private Methods
   func tileButtons(_ searchResults: [SearchResult]) {
     let itemWidth: CGFloat = 94
@@ -93,8 +132,10 @@ class LandscapeViewController: UIViewController {
     var x = marginX
     for (index, result) in searchResults.enumerated() {
       let button = UIButton(type: .custom)
-      downloadImage(for: result, andPlaceOn: button)
+      button.tag = 2000 + index
+      button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
       button.setBackgroundImage(UIImage(named: "LandscapeButton"), for: .normal)
+      downloadImage(for: result, andPlaceOn: button)
       button.frame = CGRect(
         x: x + paddingHorizontal,
         y: marginY + CGFloat(row) * itemHeight + paddingVertical,
@@ -125,6 +166,39 @@ class LandscapeViewController: UIViewController {
     pageControl.numberOfPages = numPages
     pageControl.currentPage = 0
     print("Number of pages: \(numPages)")
+  }
+
+  private func showSpinner() {
+    let spinner = UIActivityIndicatorView(style: .large)
+    spinner.center = CGPoint(
+      x: scrollView.bounds.midX + 0.5,
+      y: scrollView.bounds.midY + 0.5)
+    spinner.tag = 1000
+    scrollView.addSubview(spinner)
+    spinner.startAnimating()
+  }
+
+  private func hideSpinner() {
+    view.viewWithTag(1000)?.removeFromSuperview()
+  }
+
+  private func showNothingFoundLabel() {
+    let label = UILabel(frame: CGRect.zero)
+    label.text = "Nothing Found"
+    label.textColor = UIColor(named: "ArtistName")
+    label.backgroundColor = UIColor.clear
+
+    label.sizeToFit()
+
+    var rect = label.frame
+    rect.size.width = ceil(rect.size.width / 2) * 2
+    rect.size.height = ceil(rect.size.height / 2) * 2
+    label.frame = rect
+
+    label.center = CGPoint(
+      x: scrollView.bounds.midX,
+      y: scrollView.bounds.midY)
+    view.addSubview(label)
   }
 
   private func downloadImage(for searchResult: SearchResult, andPlaceOn button: UIButton) {
