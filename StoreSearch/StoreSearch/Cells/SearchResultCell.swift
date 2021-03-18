@@ -33,7 +33,7 @@ class SearchResultCell: UITableViewCell {
   // MARK: - Helper Methods
   func configure(for result: SearchResult) {
     nameLabel.text = result.name
-    artistNameLabel.text = result.artist.isEmpty ? "Unknown" : String(format: "%@ (%@)", result.artist, result.type)
+    artistNameLabel.text = result.artist.isEmpty ? NSLocalizedString("Unknown", comment: "Artist name label: unknown") : String(format: NSLocalizedString("ARTIST_NAME_LABEL_FORMAT", comment: "Format for artist name"), result.artist, result.type)
     artworkImageView.image = UIImage(systemName: "square")
     if let smallUrl = URL(string: result.imageSmall) {
       downloadTask = artworkImageView.loadImage(url: smallUrl)
