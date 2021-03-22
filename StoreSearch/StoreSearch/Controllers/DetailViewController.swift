@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import MessageUI
 
 class DetailViewController: UIViewController {
   @IBOutlet weak var mainView: UIView!
-  @IBOutlet weak var popupView: UIView!
+  @IBOutlet weak var popUpView: UIView!
   @IBOutlet weak var artworkImageView: UIImageView!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var artistNameLabel: UILabel!
@@ -17,8 +18,14 @@ class DetailViewController: UIViewController {
   @IBOutlet weak var genreLabel: UILabel!
   @IBOutlet weak var priceButton: UIButton!
 
-  var searchResult: SearchResult!
+  var searchResult: SearchResult! {
+    didSet {
+      guard isViewLoaded else { return }
+      updateUI()
+    }
+  }
   var downloadTask: URLSessionDownloadTask?
+  var isPopUp = false
 
   required init?(coder aCoder: NSCoder) {
     super.init(coder: aCoder)
@@ -32,18 +39,26 @@ class DetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    if searchResult != nil {
-      updateUI()
+    if isPopUp {
+      popUpView.layer.cornerRadius = 10
+      // Configure Gesture Recognizer
+      let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
+      gestureRecognizer.cancelsTouchesInView = false
+      gestureRecognizer.delegate = self
+      view.addGestureRecognizer(gestureRecognizer)
+    } else {
+      mainView.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+      popUpView.isHidden = true
+      guard let displayName = Bundle.main.localizedInfoDictionary?["CFBundleDisplayName"] as? String else { return }
+      title = displayName
+      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showPopover(_:)))
     }
     artworkImageView.layer.cornerRadius = 13
 
-    // Configure Gesture Recognizer
-    let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(close))
-    gestureRecognizer.cancelsTouchesInView = false
-    gestureRecognizer.delegate = self
-    view.addGestureRecognizer(gestureRecognizer)
+    guard searchResult != nil else { return }
+    updateUI()
   }
-    
+
   // MARK: - Actions
   @IBAction func close() {
     dismiss(animated: true)
@@ -82,6 +97,17 @@ class DetailViewController: UIViewController {
     if let largeImageUrl = URL(string: searchResult.imageLarge) {
       downloadTask = artworkImageView.loadImage(url: largeImageUrl)
     }
+    popUpView.isHidden = false
+  }
+
+  @objc func showPopover(_ sender: UIBarButtonItem) {
+    guard let popover = storyboard?.instantiateViewController(withIdentifier: "PopoverView") as? MenuViewController else { return }
+    popover.modalPresentationStyle = .popover
+    if let controller = popover.popoverPresentationController {
+      controller.barButtonItem = sender
+    }
+    popover.delegate = self
+    present(popover, animated: true, completion: nil)
   }
 
 }
@@ -101,5 +127,27 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
 
   func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return FadeOutAnimationController()
+  }
+}
+
+// MARK: - Menu View Controller Delegate Extension
+extension DetailViewController: MenuViewControllerDelegate {
+  func menuViewControllerSendEmail(_: MenuViewController) {
+    dismiss(animated: true) {
+      guard MFMailComposeViewController.canSendMail() else { return }
+
+      let controller = MFMailComposeViewController()
+      controller.mailComposeDelegate = self
+      controller.setSubject(NSLocalizedString("Support Request", comment: "Email subject"))
+      controller.setToRecipients(["your@email-address-here.com"])
+      self.present(controller, animated: true)
+    }
+  }
+}
+
+// MARK: - Mail Compose View Controller Delegate Extension
+extension DetailViewController: MFMailComposeViewControllerDelegate {
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    dismiss(animated: true)
   }
 }

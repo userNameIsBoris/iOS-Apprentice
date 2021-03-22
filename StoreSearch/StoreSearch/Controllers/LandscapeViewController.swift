@@ -82,6 +82,7 @@ class LandscapeViewController: UIViewController {
       let controller = segue.destination as! DetailViewController
       let button = sender as! UIButton
       let searchResult = array[button.tag - 2000]
+      controller.isPopUp = true
       controller.searchResult = searchResult
     }
   }
@@ -112,8 +113,8 @@ class LandscapeViewController: UIViewController {
     var rowsPerPage = 0
     var marginX: CGFloat = 0
     var marginY: CGFloat = 0
-    let viewHeight = scrollView.bounds.size.height
-    let viewWidth = scrollView.bounds.size.width
+    let viewHeight = UIScreen.main.bounds.size.height
+    let viewWidth = UIScreen.main.bounds.size.width
 
     columnsPerPage = Int(viewWidth / itemWidth)
     rowsPerPage = Int(viewHeight / itemHeight)

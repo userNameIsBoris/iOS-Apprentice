@@ -11,12 +11,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   var window: UIWindow?
 
+  // MARK: - Properties
+  var splitVC: UISplitViewController {
+    return window!.rootViewController as! UISplitViewController
+  }
+
+  var searchVC: SearchViewController {
+    let nav = splitVC.viewControllers.first as! UINavigationController
+    return nav.viewControllers.first as! SearchViewController
+  }
+
+  var detailVC: DetailViewController {
+    let nav = splitVC.viewControllers.last as! UINavigationController
+    return nav.viewControllers.first as! DetailViewController
+  }
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-    // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-    // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-    // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-    guard let _ = (scene as? UIWindowScene) else { return }
+    searchVC.splitViewDetail = detailVC
+    splitVC.delegate = self
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      splitVC.preferredDisplayMode = .oneBesideSecondary
+    }
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,6 +62,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // to restore the scene back to its current state.
   }
 
-
 }
 
+// MARK: - Split View Controller Delegate Extension
+extension SceneDelegate: UISplitViewControllerDelegate {
+  func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+    return UIDevice.current.userInterfaceIdiom == .phone ? .primary : proposedTopColumn
+  }
+}

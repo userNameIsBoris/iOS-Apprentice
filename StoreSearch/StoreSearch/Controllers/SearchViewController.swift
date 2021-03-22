@@ -14,6 +14,7 @@ class SearchViewController: UIViewController {
 
   private var search = Search()
 
+  weak var splitViewDetail: DetailViewController?
   var landscapeVC: LandscapeViewController?
 
   struct TableView {
@@ -34,7 +35,10 @@ class SearchViewController: UIViewController {
     cellNib = UINib(nibName: TableView.CellIdentifiers.loadingCell, bundle: nil)
     tableView.register(cellNib, forCellReuseIdentifier: TableView.CellIdentifiers.loadingCell)
 
-    searchBar.becomeFirstResponder()
+    if UIDevice.current.userInterfaceIdiom == .phone {
+      searchBar.becomeFirstResponder()
+    }
+    title = NSLocalizedString("Search", comment: "Split view primary button")
     tableView.contentInset = UIEdgeInsets(top: 94, left: 0, bottom: 0, right: 0)
     tableView.rowHeight = 80
     tableView.tableFooterView = UIView()
@@ -44,13 +48,19 @@ class SearchViewController: UIViewController {
     super.willTransition(to: newCollection, with: coordinator)
 
     switch newCollection.verticalSizeClass {
-    case .compact:
+    case .compact where newCollection.horizontalSizeClass == .compact:
       showLandscape(with: coordinator)
     case .regular, .unspecified:
       hideLandscape(with: coordinator)
-    @unknown default:
+    default:
       break
     }
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    guard UIDevice.current.userInterfaceIdiom == .phone else { return }
+    navigationController?.navigationBar.isHidden = true
   }
 
   // MARK: - Actions
@@ -65,8 +75,20 @@ class SearchViewController: UIViewController {
         let controller = segue.destination as! DetailViewController
         let indexPath = sender as! IndexPath
         let searchResult = array[indexPath.row]
+        controller.isPopUp = true
         controller.searchResult = searchResult
       }
+    }
+  }
+
+  // MARK: - Private Methods
+  private func hidePrimaryPane() {
+    UIView.animate(
+      withDuration: 0.25,
+      animations: {
+        self.splitViewController?.preferredDisplayMode = .secondaryOnly
+      }) { _ in
+      self.splitViewController?.preferredDisplayMode = .automatic
     }
   }
 
@@ -193,8 +215,15 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-
-    performSegue(withIdentifier: "ShowDetail", sender: indexPath)
+    searchBar.resignFirstResponder()
+    if view.window!.rootViewController!.traitCollection.horizontalSizeClass == .compact {
+      tableView.deselectRow(at: indexPath, animated: true)
+      performSegue(withIdentifier: "ShowDetail", sender: indexPath)
+    } else if case .results(let array) = search.state {
+      if splitViewController!.displayMode != .oneBesideSecondary {
+        hidePrimaryPane()
+      }
+      splitViewDetail?.searchResult = array[indexPath.row]
+    }
   }
 }
