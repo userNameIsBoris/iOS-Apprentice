@@ -18,7 +18,6 @@
 		A175303925860502007F713C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175303825860502007F713C /* ViewController.swift */; };
 		A175303C25860502007F713C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A175303A25860502007F713C /* Main.storyboard */; };
 		A175303E25860503007F713C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A175303D25860503007F713C /* Assets.xcassets */; };
-		A175304125860503007F713C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A175303F25860503007F713C /* LaunchScreen.storyboard */; };
 		A1D3D8062591CE0200290139 /* HIghScoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1D3D8052591CE0200290139 /* HIghScoreItem.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +34,6 @@
 		A175303825860502007F713C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A175303B25860502007F713C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A175303D25860503007F713C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A175304025860503007F713C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A175304225860503007F713C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1D3D8052591CE0200290139 /* HIghScoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIghScoreItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,13 +98,12 @@
 		A175303325860502007F713C /* Bullseye */ = {
 			isa = PBXGroup;
 			children = (
-				A174CC2E258F925D00E56CDF /* Bullseye.html */,
 				A175303425860502007F713C /* AppDelegate.swift */,
 				A175303625860502007F713C /* SceneDelegate.swift */,
 				A11E20FC258F8FFB006AE2EE /* ViewControllers */,
 				A115DAD72593BBA000D3B3E1 /* Model */,
 				A175303A25860502007F713C /* Main.storyboard */,
-				A175303F25860503007F713C /* LaunchScreen.storyboard */,
+				A174CC2E258F925D00E56CDF /* Bullseye.html */,
 				A175303D25860503007F713C /* Assets.xcassets */,
 				A175304225860503007F713C /* Info.plist */,
 			);
@@ -170,7 +167,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A175304125860503007F713C /* LaunchScreen.storyboard in Resources */,
 				A174CC2F258F925D00E56CDF /* Bullseye.html in Resources */,
 				A175303E25860503007F713C /* Assets.xcassets in Resources */,
 				A175303C25860502007F713C /* Main.storyboard in Resources */,
@@ -204,14 +200,6 @@
 				A175303B25860502007F713C /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		A175303F25860503007F713C /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A175304025860503007F713C /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -341,6 +329,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23PHMUFYTH;
 				INFOPLIST_FILE = Bullseye/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -360,6 +349,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23PHMUFYTH;
 				INFOPLIST_FILE = Bullseye/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

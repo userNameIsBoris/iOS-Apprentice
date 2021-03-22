@@ -2,24 +2,26 @@
 //  AboutViewController.swift
 //  Bullseye
 //
-//  Created by Борис on 20.12.2020.
+//  Created by Boris Ezhov on 20.12.2020.
 //
 
 import UIKit
 import WebKit
 
 class AboutViewController: UIViewController {
-    @IBOutlet weak var webView: WKWebView!
+  @IBOutlet weak var webView: WKWebView!
 
-    @IBAction func close(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let url = Bundle.main.url(forResource: "Bullseye", withExtension: "html") {
-            let request = URLRequest(url: url)
-            webView.load(request)
-        }
-    }
+    webView.scrollView.layer.cornerRadius = 10
+    guard let url = Bundle.main.url(forResource: "Bullseye", withExtension: "html") else { return }
+    let request = URLRequest(url: url)
+    webView.load(request)
+  }
+
+  // MARK: - Actions
+  @IBAction func close(_ sender: UIButton) {
+    dismiss(animated: true)
+  }
 }

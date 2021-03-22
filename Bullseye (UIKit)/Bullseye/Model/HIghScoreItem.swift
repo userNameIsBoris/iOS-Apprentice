@@ -2,12 +2,17 @@
 //  HIghScoreItem.swift
 //  Bullseye
 //
-//  Created by Борис on 22.12.2020.
+//  Created by Boris Ezhov on 22.12.2020.
 //
 
 import Foundation
 
 class HighScoreItem: NSObject, Codable {
-    var name = ""
-    var score = 0
+  var name: String
+  var score: Int
+
+  init(name: String = "", score: Int = 0) {
+    self.name = name
+    self.score = score
+  }
 }
