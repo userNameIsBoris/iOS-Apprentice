@@ -1,3 +1,10 @@
+//
+//  Binding.swift
+//  Checklist
+//
+//  Created by Boris Ezhov on 10.12.2020.
+//
+
 import SwiftUI
 
 public extension Binding where Value: CaseIterable & Equatable {

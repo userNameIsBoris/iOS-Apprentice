@@ -1,14 +1,20 @@
+//
+//  IndexedCollection.swift
+//  Checklist
+//
+//  Created by Boris Ezhov on 10.12.2020.
+//
+
 public struct IndexedCollection<Base: RandomAccessCollection>: RandomAccessCollection {
   let base: Base
 }
 
-//MARK: RandomAccessCollection
+// MARK: RandomAccessCollection
 public extension IndexedCollection {
   typealias Index = Base.Index
   typealias Element = (index: Index, element: Base.Element)
 
   var startIndex: Index { base.startIndex }
-
   var endIndex: Index { base.endIndex }
 
   func index(after i: Index) -> Index {
