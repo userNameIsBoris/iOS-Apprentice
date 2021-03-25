@@ -2,7 +2,7 @@
 //  ListDetailViewController.swift
 //  Checklists
 //
-//  Created by Борис on 25.01.2021.
+//  Created by Boris Ezhov on 25.01.2021.
 //
 
 import UIKit
@@ -20,7 +20,7 @@ class ListDetailViewController: UITableViewController {
 
   weak var delegate: ListDetailViewControllerDelegate?
   var checklistToEdit: Checklist?
-  var iconName = "Folder"
+  private var iconName = "Folder"
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -72,28 +72,24 @@ class ListDetailViewController: UITableViewController {
   }
 }
 
+// MARK: - Text Field Delegate Extension
 extension ListDetailViewController: UITextFieldDelegate {
-
-  // MARK: - Text Field Delegates
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     let oldText = textField.text!
     let stringRange = Range(range, in: oldText)!
     let newText = oldText.replacingCharacters(in: stringRange, with: string)
     saveBarButton.isEnabled = !newText.isEmpty
-
     return true
   }
 
   func textFieldShouldClear(_ textField: UITextField) -> Bool {
     saveBarButton.isEnabled = false
-
     return true
   }
 }
 
+// MARK: - Icon Picker View Controller Delegate Extension
 extension ListDetailViewController: IconPickerViewControllerDelegate {
-
-  // MARK: - Icon Picker ViewController Delegates
   func iconPicker(_ picker: IconPickerViewController, didPick iconName: String) {
     self.iconName = iconName
     iconImage.image = UIImage(named: iconName)

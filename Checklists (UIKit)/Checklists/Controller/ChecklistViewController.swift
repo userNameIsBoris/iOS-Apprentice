@@ -2,13 +2,12 @@
 //  ChecklistViewController.swift
 //  Checklists
 //
-//  Created by Борис on 16.01.2021.
+//  Created by Boris Ezhov on 16.01.2021.
 //
 
 import UIKit
 
 class ChecklistViewController: UITableViewController {
-
   var checklist: Checklist!
 
   override func viewDidLoad() {
@@ -22,7 +21,6 @@ class ChecklistViewController: UITableViewController {
 
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
     // Add item
     if segue.identifier == "AddItem" {
       let controller = segue.destination as! ItemDetailViewController
@@ -32,22 +30,20 @@ class ChecklistViewController: UITableViewController {
     // Edit item
     if segue.identifier == "EditItem" {
       guard let indexPath = tableView.indexPath(for: sender as! UITableViewCell) else { return }
-
       let controller = segue.destination as! ItemDetailViewController
       controller.delegate = self
       controller.itemToEdit = checklist.items[indexPath.row]
     }
   }
 
-  // MARK: - Cell Configure Methods
-  func configureTextAndDate(for cell: UITableViewCell, with item: ChecklistItem) {
-    guard let textLabel = cell.viewWithTag(1000) as? UILabel else { return }
-    guard let dueDateLabel = cell.viewWithTag(1002) as? UILabel else { return }
+  // MARK: - Helper Methods
+  private func configureTextAndDate(for cell: UITableViewCell, with item: ChecklistItem) {
+    guard let textLabel = cell.viewWithTag(1000) as? UILabel, let dueDateLabel = cell.viewWithTag(1002) as? UILabel else { return }
     textLabel.text = item.name
     dueDateLabel.text = item.dueDateString
   }
 
-  func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+  private func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
     guard let checkmarkLabel = cell.viewWithTag(1001) as? UILabel else { return }
     checkmarkLabel.text = item.isChecked ? "√" : ""
   }
@@ -71,7 +67,6 @@ class ChecklistViewController: UITableViewController {
   // MARK: - Table View Delegates
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let cell = tableView.cellForRow(at: indexPath) else { return }
-
     let item = checklist.items[indexPath.row]
     item.isChecked.toggle()
     configureCheckmark(for: cell, with: item)
@@ -85,9 +80,8 @@ class ChecklistViewController: UITableViewController {
   }
 }
 
+// MARK: - Item Detail View Controller Delegate Extension
 extension ChecklistViewController: ItemDetailViewControllerDelegate {
-
-  // MARK: - Item Detail ViewController Delegates
   func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
     navigationController?.popViewController(animated: true)
   }
@@ -96,14 +90,12 @@ extension ChecklistViewController: ItemDetailViewControllerDelegate {
     checklist.items.append(item)
     checklist.sortChecklistItems()
     tableView.reloadData()
-
     navigationController?.popViewController(animated: true)
   }
 
   func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem) {
     checklist.sortChecklistItems()
     tableView.reloadData()
-
     navigationController?.popViewController(animated: true)
   }
 }

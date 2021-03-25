@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Checklists
 //
-//  Created by Борис on 16.01.2021.
+//  Created by Boris Ezhov on 16.01.2021.
 //
 
 import UIKit

@@ -2,14 +2,13 @@
 //  AllListsViewController.swift
 //  Checklists
 //
-//  Created by Борис on 24.01.2021.
+//  Created by Boris Ezhov on 24.01.2021.
 //
 
 import UIKit
 
 class AllListsViewController: UITableViewController {
-
-  let cellIdentifier = "ChecklistCell"
+  private let cellIdentifier = "ChecklistCell"
   var dataModel: DataModel!
 
   override func viewDidLoad() {
@@ -27,7 +26,7 @@ class AllListsViewController: UITableViewController {
 
     // Show screen that the user was previously viewing
     let index = dataModel.indexOfSelectedChecklist
-    if index >= 0 && index < dataModel.lists.count  { // If the user was on the main screen, the value is -1
+    if index >= 0 && index < dataModel.lists.count { // If the user was on the main screen, the value is -1
       let checklist = dataModel.lists[index]
       performSegue(withIdentifier: "showChecklist", sender: checklist)
     }
@@ -39,7 +38,7 @@ class AllListsViewController: UITableViewController {
   }
 
   // MARK: - Helper Methods
-  func configureDetailTextInCell(_ cell: UITableViewCell, withChecklist checklist: Checklist) {
+  private func configureDetailTextInCell(_ cell: UITableViewCell, withChecklist checklist: Checklist) {
     let uncheckedItemsCount = checklist.countUncheckedItems()
     switch uncheckedItemsCount {
     case 0 where checklist.items.count == 0:
@@ -53,12 +52,10 @@ class AllListsViewController: UITableViewController {
 
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
     // Show checklist
     if segue.identifier == "showChecklist" {
       let controller = segue.destination as! ChecklistViewController
       let checklist = sender as! Checklist
-
       controller.checklist = checklist
     }
 
@@ -66,11 +63,6 @@ class AllListsViewController: UITableViewController {
     if segue.identifier == "AddChecklist" {
       let controller = segue.destination as! ListDetailViewController
       controller.delegate = self
-    }
-
-    // Edit checklist
-    if segue.identifier == "" {
-      
     }
   }
 
@@ -80,15 +72,13 @@ class AllListsViewController: UITableViewController {
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    // Get cell
+    let checklist = dataModel.lists[indexPath.row]
     let cell: UITableViewCell!
     if let tempCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
       cell = tempCell
     } else {
       cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
     }
-
-    let checklist = dataModel.lists[indexPath.row]
 
     // Configure cell
     cell.imageView!.image = UIImage(named: checklist.iconName)
@@ -122,9 +112,8 @@ class AllListsViewController: UITableViewController {
   }
 }
 
+// MARK: - List Detail View Controller Delegate Extension
 extension AllListsViewController: ListDetailViewControllerDelegate {
-
-  // MARK: - List Detail ViewController Delegates
   func ListDetailViewControllerDidCancel(_ controller: ListDetailViewController) {
     navigationController?.popViewController(animated: true)
   }
@@ -145,9 +134,8 @@ extension AllListsViewController: ListDetailViewControllerDelegate {
   }
 }
 
+// MARK: - Navigation Controller Delegate Extension
 extension AllListsViewController: UINavigationControllerDelegate {
-
-  // MARK: - Navigation Controller Delegates
   func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
     if viewController === self {
       dataModel.indexOfSelectedChecklist = -1

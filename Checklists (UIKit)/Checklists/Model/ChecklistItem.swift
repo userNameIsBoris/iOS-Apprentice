@@ -2,13 +2,13 @@
 //  ChecklistItem.swift
 //  Checklists
 //
-//  Created by Борис on 17.01.2021.
+//  Created by Boris Ezhov on 17.01.2021.
 //
 
 import Foundation
 import UserNotifications
 
-let dateFormatter: DateFormatter = {
+private let dateFormatter: DateFormatter = {
   let dateFormatter = DateFormatter()
   dateFormatter.dateStyle = .short
   return dateFormatter
@@ -23,7 +23,6 @@ class ChecklistItem: Equatable, Codable {
   var dueDateString: String {
     dateFormatter.string(from: dueDate)
   }
-  
 
   init(name: String, isChecked: Bool = false, shouldRemind: Bool = false, dueDate: Date = Date()) {
     self.id = UUID()
@@ -31,7 +30,6 @@ class ChecklistItem: Equatable, Codable {
     self.isChecked = isChecked
     self.shouldRemind = shouldRemind
     self.dueDate = dueDate
-//    self.itemID = DataModel.newChecklistItemID()
   }
 
   deinit {
@@ -56,9 +54,7 @@ class ChecklistItem: Equatable, Codable {
       let calendar = Calendar(identifier: .gregorian)
       let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: dueDate)
       let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-
       let request = UNNotificationRequest(identifier: id.uuidString, content: content, trigger: trigger)
-
       let center = UNUserNotificationCenter.current()
       center.add(request)
 

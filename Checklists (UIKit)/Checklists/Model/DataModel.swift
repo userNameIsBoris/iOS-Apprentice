@@ -2,7 +2,7 @@
 //  DataModel.swift
 //  Checklists
 //
-//  Created by Борис on 26.01.2021.
+//  Created by Boris Ezhov on 26.01.2021.
 //
 
 import Foundation
@@ -63,10 +63,7 @@ class DataModel {
 
   // MARK: User Defaults
   func registerDefaults() {
-    let dictionary = [
-      "ChecklistIndex": -1,
-      "FirstTime": true,
-    ] as [String : Any]
+    let dictionary: [String: Any] = ["ChecklistIndex": -1, "FirstTime": true]
     UserDefaults.standard.register(defaults: dictionary)
   }
 
@@ -74,13 +71,11 @@ class DataModel {
     let userDefaults = UserDefaults.standard
     let firstTime = userDefaults.bool(forKey: "FirstTime")
 
-    if firstTime {
-      let checklist = Checklist(name: "List")
-      lists.append(checklist)
-
-      indexOfSelectedChecklist = 0
-      userDefaults.set(false, forKey: "FirstTime")
-    }
+    guard firstTime else { return }
+    let checklist = Checklist(name: "List")
+    lists.append(checklist)
+    indexOfSelectedChecklist = 0
+    userDefaults.set(false, forKey: "FirstTime")
   }
 
   // MARK: Sort
@@ -89,12 +84,4 @@ class DataModel {
       return list1.name.localizedCompare(list2.name) == .orderedAscending
     }
   }
-
-//  class func newChecklistItemID() -> Int {
-//    let userDefaults = UserDefaults.standard
-//    let itemID = userDefaults.integer(forKey: "ChecklistItemID")
-//    userDefaults.set(itemID + 1, forKey: "ChecklistItemID")
-//
-//    return itemID
-//  }
 }

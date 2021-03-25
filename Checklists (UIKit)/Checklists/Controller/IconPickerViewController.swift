@@ -2,7 +2,7 @@
 //  IconPickerViewController.swift
 //  Checklists
 //
-//  Created by Борис on 28.01.2021.
+//  Created by Boris Ezhov on 28.01.2021.
 //
 
 import UIKit
@@ -13,7 +13,7 @@ protocol IconPickerViewControllerDelegate: class {
 
 class IconPickerViewController: UITableViewController {
   weak var delegate: IconPickerViewControllerDelegate?
-  let icons = ["No Icon", "Appointments", "Birthdays", "Chores", "Drinks", "Folder", "Groceries", "Inbox", "Photos", "Trips"]
+  private let icons = ["No Icon", "Appointments", "Birthdays", "Chores", "Drinks", "Folder", "Groceries", "Inbox", "Photos", "Trips"]
 
   // MARK: - Table View Delegates
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,7 +25,6 @@ class IconPickerViewController: UITableViewController {
     let iconName = icons[indexPath.row]
     cell.textLabel?.text = iconName
     cell.imageView?.image = UIImage(named: iconName)
-
     return cell
   }
 

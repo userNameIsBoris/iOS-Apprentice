@@ -2,7 +2,7 @@
 //  Checklist.swift
 //  Checklists
 //
-//  Created by Борис on 24.01.2021.
+//  Created by Boris Ezhov on 24.01.2021.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ class Checklist: Equatable, Codable {
     self.iconName = iconName
   }
 
-  // MARK: Methods
+  // MARK: - Methods
   func countUncheckedItems() -> Int {
     var count = 0
     for item in items where !item.isChecked {
@@ -39,5 +39,4 @@ class Checklist: Equatable, Codable {
   static func == (lhs: Checklist, rhs: Checklist) -> Bool {
     return lhs.id == rhs.id
   }
-
 }

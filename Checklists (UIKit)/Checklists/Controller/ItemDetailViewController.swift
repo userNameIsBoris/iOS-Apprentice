@@ -2,7 +2,7 @@
 //  ItemDetailViewController.swift
 //  Checklists
 //
-//  Created by Борис on 17.01.2021.
+//  Created by Boris Ezhov on 17.01.2021.
 //
 
 import UIKit
@@ -60,13 +60,11 @@ class ItemDetailViewController: UITableViewController {
 
   @IBAction func shouldRemidToggled(_ sender: UISwitch) {
     textField.resignFirstResponder()
-
-    if sender.isOn {
-      let center = UNUserNotificationCenter.current()
-      center.requestAuthorization(options: [.alert, .sound]) { _,_  in }
-    }
+    guard sender.isOn else { return }
+    let center = UNUserNotificationCenter.current()
+    center.requestAuthorization(options: [.alert, .sound]) { _, _ in }
   }
-  
+
   @IBAction func cancel(_ sender: UIBarButtonItem) {
     delegate?.itemDetailViewControllerDidCancel(self)
   }
@@ -77,21 +75,18 @@ class ItemDetailViewController: UITableViewController {
   }
 }
 
+// MARK: - Text Field Delegate Extension
 extension ItemDetailViewController: UITextFieldDelegate {
-
-  // MARK: - Text Field Delegates
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     let oldText = textField.text!
     let stringRange = Range(range, in: oldText)!
     let newText = oldText.replacingCharacters(in: stringRange, with: string)
     saveBarButton.isEnabled = !newText.isEmpty
-
     return true
   }
 
   func textFieldShouldClear(_ textField: UITextField) -> Bool {
     saveBarButton.isEnabled = false
-
     return true
   }
 }
