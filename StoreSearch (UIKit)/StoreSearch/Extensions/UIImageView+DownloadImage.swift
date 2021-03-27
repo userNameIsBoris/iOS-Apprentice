@@ -2,7 +2,7 @@
 //  UIImageView+DownloadImage.swift
 //  StoreSearch
 //
-//  Created by Борис on 05.03.2021.
+//  Created by Boris Ezhov on 05.03.2021.
 //
 
 import UIKit
@@ -15,7 +15,7 @@ extension UIImageView {
       if error == nil, let url = url, let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
         DispatchQueue.main.async {
           if let weakSelf = self {
-            weakSelf.image = image
+            weakSelf.image = image.resized(withBounds: CGSize(width: 60, height: 60))
           }
         }
       }

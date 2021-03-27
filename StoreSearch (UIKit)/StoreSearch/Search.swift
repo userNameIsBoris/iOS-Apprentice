@@ -2,7 +2,7 @@
 //  Search.swift
 //  StoreSearch
 //
-//  Created by Борис on 15.03.2021.
+//  Created by Boris Ezhov on 15.03.2021.
 //
 
 import Foundation
@@ -48,7 +48,6 @@ class Search {
         var newState: State = .notSearchedYet
         var success = false
 
-        // TODO: Check lines below in finished project
         if let error = error as NSError?, error.code == -999 {
           return
         }

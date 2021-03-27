@@ -2,7 +2,7 @@
 //  SearchResult.swift
 //  StoreSearch
 //
-//  Created by Борис on 01.03.2021.
+//  Created by Boris Ezhov on 01.03.2021.
 //
 
 import Foundation

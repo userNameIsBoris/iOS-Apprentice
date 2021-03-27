@@ -2,7 +2,7 @@
 //  LandscapeViewController.swift
 //  StoreSearch
 //
-//  Created by Борис on 12.03.2021.
+//  Created by Boris Ezhov on 12.03.2021.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ class LandscapeViewController: UIViewController {
   @IBOutlet weak var pageControl: UIPageControl!
 
   var search: Search!
-  
+
   private var firstTime = true
   private var downloads = [URLSessionDownloadTask]()
 
@@ -206,9 +206,11 @@ class LandscapeViewController: UIViewController {
     if let url = URL(string: searchResult.imageSmall) {
       let task = URLSession.shared.downloadTask(with: url) { [weak button] url, _, error in
         if error == nil, let url = url, let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+          let resizedImage = image.resized(withBounds: CGSize(width: 100, height: 100))
+
           DispatchQueue.main.async {
             if let button = button {
-              button.setImage(image, for: .normal)
+              button.setImage(resizedImage, for: .normal)
             }
           }
         }

@@ -2,7 +2,7 @@
 //  DetailViewController.swift
 //  StoreSearch
 //
-//  Created by Борис on 08.03.2021.
+//  Created by Boris Ezhov on 08.03.2021.
 //
 
 import UIKit

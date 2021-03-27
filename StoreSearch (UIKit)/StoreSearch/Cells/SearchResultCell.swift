@@ -2,7 +2,7 @@
 //  SearchResultCell.swift
 //  StoreSearch
 //
-//  Created by Борис on 02.03.2021.
+//  Created by Boris Ezhov on 02.03.2021.
 //
 
 import UIKit

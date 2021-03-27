@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A101746A260F86C2004FB0F8 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1017469260F86C2004FB0F8 /* UIImage+Resize.swift */; };
 		A137295125ECE7C40086D698 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137295025ECE7C40086D698 /* AppDelegate.swift */; };
 		A137295325ECE7C40086D698 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137295225ECE7C40086D698 /* SceneDelegate.swift */; };
 		A137295525ECE7C40086D698 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A137295425ECE7C40086D698 /* SearchViewController.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1017469260F86C2004FB0F8 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		A137294D25ECE7C40086D698 /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A137295025ECE7C40086D698 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A137295225ECE7C40086D698 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A101746C260F8909004FB0F8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A1F588CC25F22A14005B03C2 /* UIImageView+DownloadImage.swift */,
+				A1017469260F86C2004FB0F8 /* UIImage+Resize.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		A137294425ECE7C40086D698 = {
 			isa = PBXGroup;
 			children = (
@@ -95,7 +106,7 @@
 				A137295025ECE7C40086D698 /* AppDelegate.swift */,
 				A137295225ECE7C40086D698 /* SceneDelegate.swift */,
 				A1FD236825FE225100C3BCDA /* Animations */,
-				A1F588CC25F22A14005B03C2 /* UIImageView+DownloadImage.swift */,
+				A101746C260F8909004FB0F8 /* Extensions */,
 				A1CAC9B325F6223A00703616 /* Controllers */,
 				A189F45B25FF7F0A007FDA61 /* Search.swift */,
 				A1FD236A25FE228B00C3BCDA /* Model */,
@@ -237,6 +248,7 @@
 				A137295125ECE7C40086D698 /* AppDelegate.swift in Sources */,
 				A1A3830B25FB919C0038BD91 /* LandscapeViewController.swift in Sources */,
 				A1ACE39125FA0D4E0044513D /* FadeOutAnimationController.swift in Sources */,
+				A101746A260F86C2004FB0F8 /* UIImage+Resize.swift in Sources */,
 				A1ACE38C25FA0A640044513D /* FadeInAnimationController.swift in Sources */,
 				A137296825ED06160086D698 /* SearchResult.swift in Sources */,
 				A1F46E7D260785EE00B41CC4 /* MenuViewController.swift in Sources */,
